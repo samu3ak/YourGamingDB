@@ -1,14 +1,10 @@
 var express = require('express');
 var router = express.Router();
-
-// Parámetros establecidos para las opciones de renderizado de la página
-const params = {
-  title: "YGDB - Login"
-};
+var loginController = require("../controllers/loginController");
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('login', { title: params.title });
-});
+router.get('/', loginController.login);
+
+router.post("/", loginController.login_post);
 
 module.exports = router;
