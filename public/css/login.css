@@ -1,0 +1,9 @@
+.container {
+    margin-top: 200px;
+    padding: 60px;
+    width: 1000px;
+}
+
+.botoneraInferior a {
+    width: 100%;
+}

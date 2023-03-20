@@ -1,0 +1,43 @@
+<%- include('./template/head') %>
+    <link rel="stylesheet" href="/css/login.css">
+    </head>
+
+    <body>
+        <main class="mb-5">
+            <div class="container bg-primary text-dark border border-3 rounded rounded-4">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <form action="/login" method="POST">
+                            <fieldset>
+                                <legend class="text-center display-6">Inicio de sesión</legend>
+                                <div class="form-group">
+                                    <label for="usuario" class="form-label mt-4">Nombre de usuario</label>
+                                    <input type="text" class="form-control" id="usuario"
+                                        placeholder="Introduce tu usuario" name="usuario">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" class="form-label mt-4">Contraseña</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                        placeholder="Contraseña de tu cuenta" name="password">
+                                </div>
+
+                                <div class="row mt-5">
+                                    <button type="submit" class="btn btn-secondary">Iniciar Sesión</button>
+                                </div>
+                                <div class="col-12 mt-5 d-flex gap-2 justify-content-center botoneraInferior">
+                                    <a href="/register" class="btn btn-dark">Registrarse</a>
+                                    <a href="/" class="btn btn-dark">Volver</a>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+
+    </html>
