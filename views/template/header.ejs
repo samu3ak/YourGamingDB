@@ -27,8 +27,12 @@
                 </li>
             </ul>
             <form class="d-flex gap-2">
-                <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
-                <a class="btn btn-light" href="/register">Regístrate</a>
+                <% if (!locals.usuario) { %>
+                    <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
+                    <a class="btn btn-light" href="/register">Regístrate</a>
+                    <% }else{ %>
+                        <a class="btn btn-danger" href="/">Cerrar Sesión</a>
+                        <% } %>
             </form>
         </div>
     </div>

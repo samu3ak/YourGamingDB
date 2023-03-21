@@ -4,7 +4,7 @@
 
     <body>
         <main class="mb-5">
-            <div class="container bg-primary text-white border border-3 rounded rounded-4">
+            <div class="container bg-primary text-white border border-3 rounded rounded-4 border-primary">
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <form action="/login" method="POST">
@@ -31,15 +31,18 @@
                                 </div>
 
                                 <% if (locals.error) { %>
-                                    <div class="row bg-danger justify-content-center p-2 fw-bolder rounded-3 mt-5">
+                                    <div class="alert alert-dismissible alert-danger mt-5 text-center">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        <strong>
                                             <%=locals.error%>
+                                        </strong>
                                     </div>
                                     <% } %>
-                                    
-                                <div class="col-12 mt-5 d-flex gap-2 justify-content-center botoneraInferior">
-                                    <a href="/register" class="btn btn-dark">Registrarse</a>
-                                    <a href="/" class="btn btn-dark">Volver</a>
-                                </div>
+
+                                        <div class="col-12 mt-5 d-flex gap-2 justify-content-center botoneraInferior">
+                                            <a href="/register" class="btn btn-dark">Registrarse</a>
+                                            <a href="/" class="btn btn-dark">Volver</a>
+                                        </div>
                             </fieldset>
                         </form>
                     </div>

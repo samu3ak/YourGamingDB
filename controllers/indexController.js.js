@@ -5,7 +5,8 @@ const params = {
 };
 
 exports.index = (req, res) => {
-    res.render('index', { title: params.title, inicioActivo: params.inicioActivo });
+    console.log(req.session.usuario);
+    res.render("index", { title: params.title, usuario: req.session.usuario });
     // req.getConnection((err, connection) => {
     //   if (err) return next(err);
 
