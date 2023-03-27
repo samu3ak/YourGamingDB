@@ -29,19 +29,7 @@ exports.login_post = (req, res) => {
     }*/
 
     if (validado) {
-        req.getConnection((err, conn) => {
-            conn.query(`SELECT nombreUsuario, password, rol FROM usuario WHERE nombreUsuario = ? AND password = (?)`,
-                [data.usuario, data.password], (err, usuario) => {
-                    if (usuario === undefined || usuario.length === 0) {
-                        params.errorMsg = "No existe ese usuario/contraseña en el sistema";
-                        res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
-                    } else {
-                        req.session.usuario = usuario[0];
-                        params.title = "YGDB - Inicio";
-                        res.render("index", { title: params.title, usuario: req.session.usuario });
-                    }
-                });
-        });
+        res.render("index", { title: params.title });
     } else {
         res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
     }

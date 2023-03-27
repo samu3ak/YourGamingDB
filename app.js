@@ -5,17 +5,31 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require("express-session");
 var bodyParser = require("body-parser");
-var mysql = require("mysql");
 var passport = require("passport");
+const { Sequelize } = require('sequelize');
 require("dotenv").config();
-var myConnection = require("express-myconnection");
 var dbOptions = {
   host: process.env.HOST,
   user: process.env.USER,
   password: process.env.PASSWORD,
-  port: process.env.DB_POST,
+  port: process.env.DB_PORT,
   database: process.env.DATABASE
 };
+
+// Conexión a la BBDD mediante ORM Sequelizer
+const sequelize = new Sequelize(dbOptions.database, dbOptions.user, dbOptions.password, {
+  host: dbOptions.host,
+  dialect: "mysql"
+});
+comprobarConexionBBDD();
+async function comprobarConexionBBDD(){
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -25,9 +39,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// Conexión a la base de datos MySQL
-app.use(myConnection(mysql, dbOptions, "single"));
 
 app.use(logger('dev'));
 app.use(express.json());
