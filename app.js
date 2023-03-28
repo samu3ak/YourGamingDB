@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require("express-session");
 var bodyParser = require("body-parser");
-var passport = require("passport");
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
 
@@ -42,8 +41,6 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);

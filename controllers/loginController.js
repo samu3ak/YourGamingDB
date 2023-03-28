@@ -1,3 +1,5 @@
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../models/cargarModelos").getSequelize();
 // Parámetros establecidos para las opciones de renderizado de la página
 const params = {
     title: "YGDB - Login",
@@ -29,7 +31,22 @@ exports.login_post = (req, res) => {
     }*/
 
     if (validado) {
-        res.render("index", { title: params.title });
+        sequelize.query("SELECT * FROM usuario WHERE nombreUsuario = ?", { replacements: [usuario], type: sequelize.QueryTypes.SELECT })
+            .then((row) => {
+                if (row[0] === undefined) {
+                    params.errorMsg = "No existe ese usuario/contraseña";
+                    res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
+                } else if (row[0].password !== password) {
+                    params.errorMsg = "Contraseña incorrecta";
+                    res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
+                }
+                req.session.usuario = row[0];
+                res.redirect("/");
+            }).catch((err) => {
+                params.errorMsg = "Ha ocurrido un error interno al intentar iniciar sesión";
+                res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
+                console.log(err);
+            });
     } else {
         res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
     }
