@@ -8,28 +8,19 @@ var bodyParser = require("body-parser");
 var passport = require("passport");
 const { Sequelize } = require('sequelize');
 require("dotenv").config();
-var dbOptions = {
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  port: process.env.DB_PORT,
-  database: process.env.DATABASE
-};
 
-// Conexión a la BBDD mediante ORM Sequelizer
-const sequelize = new Sequelize(dbOptions.database, dbOptions.user, dbOptions.password, {
-  host: dbOptions.host,
+// Comprueba conexión a la BBDD mediante ORM Sequelizer
+const sequelize = new Sequelize(process.env.DATABASE, process.env.USER, process.env.PASSWORD, {
+  host: process.env.HOST,
   dialect: "mysql"
 });
-comprobarConexionBBDD();
-async function comprobarConexionBBDD(){
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-}
+sequelize.authenticate().then(() => {
+  console.log('La conexión con la BBDD es satisfactoria');
+}).catch((error) => {
+  console.error('No se ha podido conectar a la BBDD:', error);
+}).finally(() => {
+  sequelize.close().then(() => console.log("Conexión BBDD de prueba cerrada"));
+});
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -56,7 +47,6 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
