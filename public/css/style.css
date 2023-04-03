@@ -3,3 +3,7 @@ main,
 html {
     background-color: #d6fef3;
 }
+
+#dropdownMenuButton1{
+    cursor: pointer;
+}
