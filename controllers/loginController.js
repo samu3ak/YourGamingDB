@@ -33,6 +33,7 @@ exports.login_post = (req, res) => {
     if (validado) {
         sequelize.query("SELECT * FROM usuario WHERE nombreUsuario = ?", { replacements: [usuario], type: sequelize.QueryTypes.SELECT })
             .then((row) => {
+                if(row.length > 1) throw new Error("Se ha encontrado más de un usuario con el mismo nombre en la BBDD");
                 if (row[0] === undefined) {
                     params.errorMsg = "No existe ese usuario/contraseña";
                     res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
