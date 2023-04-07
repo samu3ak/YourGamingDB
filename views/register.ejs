@@ -7,24 +7,10 @@
             <div class="container bg-primary text-white border border-3 rounded rounded-4 border-primary">
                 <div class="row justify-content-center">
                     <div class="col-12">
-                        <form action="/login" method="POST">
+                        <form action="/register" method="POST">
                             <fieldset>
                                 <legend class="text-center display-6">Registro de usuario</legend>
                                 <p class="text-center pt-3 fw-bold fst-italic"><span class="text-danger">*</span>: Campo obligatorio</p>
-                                <div class="form-group">
-                                    <label for="nombre" class="form-label">Nombre<span class="text-danger fw-bold"> *</span></label>
-                                    <input type="text" class="form-control" id="nombre"
-                                        placeholder="Introduce tu nombre" name="nombre" <% if (locals.nombre) { %>
-                                    value="<%=locals.nombre%>"
-                                        <% } %>>
-                                </div>
-                                <div class="form-group">
-                                    <label for="apellido" class="form-label mt-4">Apellidos</label>
-                                    <input type="text" class="form-control" id="apellido"
-                                        placeholder="Introduce tus apellidos" name="apellido" <% if (locals.apellido) { %>
-                                    value="<%=locals.apellido%>"
-                                        <% } %>>
-                                </div>
                                 <div class="form-group">
                                     <label for="usuario" class="form-label mt-4">Nombre de usuario<span class="text-danger fw-bold"> *</span></label>
                                     <input type="text" class="form-control" id="usuario"
@@ -48,9 +34,9 @@
                                         <% } %>>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1" class="form-label mt-4">Repetir contraseña<span class="text-danger fw-bold"> *</span></label>
+                                    <label for="exampleInputPassword1" class="form-label mt-4">Confirmar contraseña<span class="text-danger fw-bold"> *</span></label>
                                     <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Repite la contraseña" name="password" <% if (locals.password) {
+                                        placeholder="Vuelve a introducir la contraseña" name="passwordConfirm" <% if (locals.password) {
                                         %>
                                     value="<%=locals.password%>"
                                         <% } %>>

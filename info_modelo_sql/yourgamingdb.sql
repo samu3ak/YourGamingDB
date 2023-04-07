@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2023 at 04:05 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Apr 07, 2023 at 09:50 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `juego` (
   `id_juego` int(11) NOT NULL,
   `titulo` varchar(30) NOT NULL,
   `genero` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -44,7 +44,7 @@ CREATE TABLE `juegoplataforma` (
   `id_juegoPlataforma` int(11) NOT NULL,
   `id_juego_juegoPlataforma` int(11) NOT NULL,
   `id_plataforma_juegoPlataforma` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ CREATE TABLE `mensaje` (
   `id_mensaje` int(11) NOT NULL,
   `id_usuario_mensaje` int(11) NOT NULL,
   `id_usuario2_mensaje` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE `perfilusuario` (
   `id_perfilUsuario` int(11) NOT NULL,
   `id_usuario_perfilUsuario` int(11) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -83,7 +83,7 @@ CREATE TABLE `perfilusuariojuego` (
   `estado` enum('Pendiente','Jugando','Completado','Abandonado') DEFAULT NULL,
   `calificacion` int(10) DEFAULT NULL,
   `opinion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,7 @@ CREATE TABLE `plataforma` (
   `id_plataforma` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -105,23 +105,20 @@ CREATE TABLE `plataforma` (
 
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
-  `apellido1` varchar(30) NOT NULL,
-  `apellido2` varchar(30) DEFAULT NULL,
   `nombreUsuario` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
   `correo` varchar(120) NOT NULL,
   `rol` enum('usuario','administrador') DEFAULT NULL,
   `numAmigos` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido1`, `apellido2`, `nombreUsuario`, `password`, `correo`, `rol`, `numAmigos`) VALUES
-(1, 'admin', 'admin', NULL, 'admin', 'admin', 'admin@admin.es', 'administrador', NULL),
-(2, 'Samuel', 'Bolívar', 'Villanueva', 'samu3ak', '3001', 'samuelbolivar2003@gmail.com', 'usuario', NULL);
+INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`, `numAmigos`) VALUES
+(1, 'admin', 'admin', 'admin@admin.es', 'administrador', NULL),
+(2, 'samu3ak', '3001', 'samuelbolivar2003@gmail.com', 'usuario', NULL);
 
 -- --------------------------------------------------------
 
@@ -134,7 +131,7 @@ CREATE TABLE `usuarioamigo` (
   `id_usuario_usuarioAmigo` int(11) NOT NULL,
   `id_usuario2_usuarioAmigo` int(11) NOT NULL,
   `estado` enum('pendiente','amigo') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -146,7 +143,7 @@ CREATE TABLE `usuarioplataforma` (
   `id_usuarioPlataforma` int(11) NOT NULL,
   `id_usuario_usuarioPlataforma` int(11) NOT NULL,
   `id_plataforma_usuarioPlataforma` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables

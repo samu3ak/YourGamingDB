@@ -7,18 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    nombre: {
-      type: DataTypes.STRING(30),
-      allowNull: false
-    },
-    apellido1: {
-      type: DataTypes.STRING(30),
-      allowNull: false
-    },
-    apellido2: {
-      type: DataTypes.STRING(30),
-      allowNull: true
-    },
     nombreUsuario: {
       type: DataTypes.STRING(30),
       allowNull: false
