@@ -4,6 +4,11 @@ html {
     background-color: #d6fef3;
 }
 
-#dropdownMenuButton1{
+#dropdownMenuButton1 {
     cursor: pointer;
+}
+
+.botonAdmin {
+    color: #ff3a3a;
+    font-weight: bold;
 }

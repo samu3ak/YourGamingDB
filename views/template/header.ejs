@@ -11,17 +11,6 @@
                 <li class="nav-item">
                     <a class="nav-link <%=locals.inicioActivo%>" href="/">Inicio</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">Sobre nosotros</a>
                 </li>
@@ -32,11 +21,35 @@
                     <a class="btn btn-light" href="/register">Regístrate</a>
                     <% }else{ %>
                         <% if (locals.usuario.rol=="administrador" ) { %>
-                            <a href="">
-                                <img class="img-fluid float-start pe-2 pt-1" src="images/tool_icon.png" alt="Tools icon" width="50px">
-                                <p class="float-start pe-3 pt-3 text-warning fw-bold">Perfil Administrador
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary border border-2" data-bs-toggle="modal"
+                                data-bs-target="#mpAdmin">
+                                <img class="img-fluid float-start pe-2 pt-2" src="images/tool_icon.png" alt="Tools icon"
+                                    width="50px">
+                                <p class="float-start pe-3 pt-3">Herramientas Perfil Administrador
                                 </p>
-                            </a>
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="mpAdmin" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Herramientas administrador</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <p>Gestionar Usuarios</p>
+                                            <p>Gestionar Juegos</p>
+                                            <p>Revisar solicitudes juegos</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <% }else{ %>
                                 <a href="">
                                     <p class="float-start pe-3 pt-3 text-white">Bienvenido,
