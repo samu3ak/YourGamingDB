@@ -31,18 +31,30 @@
                     <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
                     <a class="btn btn-light" href="/register">Regístrate</a>
                     <% }else{ %>
-                        <a href=""><p class="float-start pe-3 pt-3 text-white">Bienvenido, <%=locals.usuario.nombreUsuario%></p></a>
-                        <div class="dropstart">
-                            <img class="rounded-circle dropdown-toggle" src="images/default_avatar.png"
-                                alt="Default Avatar Image" width="60px" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <ul class="dropdown-menu mt-5" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Perfil</a></li>
-                                <li><a class="dropdown-item" href="#">Configuración</a></li>
-                                <li><a class="dropdown-item bg-danger" href="/logout">Cerrar Sesión</a></li>
-                            </ul>
-                        </div>
-                        <% } %>
+                        <% if (locals.usuario.rol=="administrador" ) { %>
+                            <a href="">
+                                <img class="img-fluid float-start pe-2 pt-1" src="images/tool_icon.png" alt="Tools icon" width="50px">
+                                <p class="float-start pe-3 pt-3 text-warning fw-bold">Perfil Administrador
+                                </p>
+                            </a>
+                            <% }else{ %>
+                                <a href="">
+                                    <p class="float-start pe-3 pt-3 text-white">Bienvenido,
+                                        <%=locals.usuario.nombreUsuario%>
+                                    </p>
+                                </a>
+                                <%}%>
+                                    <div class="dropstart">
+                                        <img class="rounded-circle dropdown-toggle" src="images/default_avatar.png"
+                                            alt="Default Avatar Image" width="60px" id="dropdownMenuButton1"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        <ul class="dropdown-menu mt-5" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                                            <li><a class="dropdown-item bg-danger" href="/logout">Cerrar Sesión</a></li>
+                                        </ul>
+                                    </div>
+                                    <% } %>
             </form>
         </div>
     </div>
