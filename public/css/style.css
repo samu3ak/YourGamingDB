@@ -1,7 +1,7 @@
 body,
 main,
 html {
-    background-color: #d6fef3;
+    background-color: #defff5;
 }
 
 #dropdownMenuButton1 {
@@ -11,4 +11,14 @@ html {
 .botonAdmin {
     color: #ff3a3a;
     font-weight: bold;
+}
+
+.listaAmigos {
+    height: 50px;
+    width: 280px;
+    background-color: #6eb6a3;
+}
+
+.listaAmigos:hover {
+    cursor: pointer;
 }
