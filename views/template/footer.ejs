@@ -2,8 +2,19 @@
   <div class="row justify-content-end">
     <div class="col-1">
       <% if (locals.usuario) { %>
-        <div class="listaAmigos rounded-top float-end pt-2 text-center">
+        <div class="listaAmigosButton rounded-top float-end pt-2 text-center">
           <img class="img-fluid" src="images/users_icon.png" alt="Friend Icon" width="40px"> Lista de Chats
+        </div>
+        <div class="listaAmigos float-end pt-2 text-center">
+          <div class="col-12 chatUsuario pt-3 pb-3">
+            Chat1...
+          </div>
+          <div class="col-12 chatUsuario pt-3 pb-3">
+            Chat2...
+          </div>
+          <div class="col-12 chatUsuario pt-3 pb-3">
+            Chat3...
+          </div>
         </div>
         <% } %>
     </div>
@@ -21,4 +32,10 @@
   </div>
 </div>
 </div>
+<script>
+  $(".listaAmigosButton").click(function (e) {
+    e.preventDefault();
+    $(".listaAmigos").slideToggle();
+  });
+</script>
 </body>

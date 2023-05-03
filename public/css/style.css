@@ -13,12 +13,24 @@ html {
     font-weight: bold;
 }
 
-.listaAmigos {
+.listaAmigosButton {
     height: 50px;
     width: 280px;
     background-color: #6eb6a3;
 }
 
-.listaAmigos:hover {
+.listaAmigosButton:hover {
     cursor: pointer;
+    background-color: #5da18f;
+}
+
+.listaAmigos {
+    width: 280px;
+    background-color: black;
+    display: none;
+}
+
+.chatUsuario:hover {
+    cursor: pointer;
+    background-color: gray;
 }
