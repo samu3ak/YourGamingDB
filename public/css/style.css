@@ -26,11 +26,11 @@ html {
 
 .listaAmigos {
     width: 280px;
-    background-color: black;
+    background-color: #7ec5b2;
     display: none;
 }
 
 .chatUsuario:hover {
     cursor: pointer;
-    background-color: gray;
+    background-color: #78beac;
 }
