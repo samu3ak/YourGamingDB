@@ -1,5 +1,5 @@
 <%- include('./template/head') %>
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/register.css">
     </head>
 
     <body>
@@ -36,9 +36,9 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1" class="form-label mt-4">Confirmar contraseña<span class="text-danger fw-bold"> *</span></label>
                                     <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Vuelve a introducir la contraseña" name="passwordConfirm" <% if (locals.password) {
+                                        placeholder="Vuelve a introducir la contraseña" name="passwordConfirm" <% if (locals.passwordConfirm) {
                                         %>
-                                    value="<%=locals.password%>"
+                                    value="<%=locals.passwordConfirm%>"
                                         <% } %>>
                                 </div>
 
@@ -53,7 +53,14 @@
                                             <%=locals.error%>
                                         </strong>
                                     </div>
-                                    <% } %>
+                                    <% }else if(locals.success){ %>
+                                    <div class="alert alert-dismissible alert-success mt-5 text-center">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        <strong>
+                                            <%=locals.success%>
+                                        </strong>
+                                    </div>
+                                        <%}%>
 
                                         <div class="col-12 mt-5 d-flex gap-2 justify-content-center botoneraInferior">
                                             <a href="/login" class="btn btn-dark">Iniciar Sesión</a>
