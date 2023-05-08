@@ -1,7 +1,6 @@
 // Parámetros establecidos para las opciones de renderizado de la página
 const params = {
-    title: "YGDB - Perfil de ",
-    inicioActivo: "active"
+    title: "YGDB - Perfil de "
 };
 
 exports.profile = (req, res) => {
