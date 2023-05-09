@@ -8,7 +8,6 @@ const params = {
 
 exports.gestionUsuarios = async (req, res) => {
     // Recogida de usuarios registrados con rol de usuario
-    const Users = await Usuario.findAll({ where: { rol: "usuario" }, raw: true });
-
-    res.render("gestionUsuarios", { title: params.title, usuario: req.session.usuario });
+    const Users = await Usuario.findAll({ where: { rol: "usuario" }, raw: true }); 
+    res.render("gestionUsuarios", { title: params.title, usuario: req.session.usuario, usuarios: Users });
 };
