@@ -4,6 +4,10 @@ html {
     background-color: #defff5;
 }
 
+main{
+    margin-bottom: 80px;
+}
+
 #dropdownMenuButton1 {
     cursor: pointer;
 }

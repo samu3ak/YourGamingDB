@@ -1,0 +1,12 @@
+#searchField {
+    border-radius: 10px 0px 0px 10px;
+}
+
+#searchButton {
+    border-radius: 0px 10px 10px 0px;
+    background-color: #5da18f;
+}
+
+#searchButton:hover {
+    background-color: #528f7f;
+}
