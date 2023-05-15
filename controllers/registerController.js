@@ -1,5 +1,6 @@
 const { QueryTypes } = require("sequelize");
 const [Usuario, sequelize] = require("../models/cargarModelos").getModelSequelize("../models/usuario");
+const bcryptjs = require("bcryptjs");
 
 // Parámetros establecidos para las opciones de renderizado de la página
 const params = {
@@ -29,7 +30,7 @@ exports.register_post = (req, res) => {
     if (validado) {
         let usuario = data.usuario;
         let correo = data.correo;
-        let password = data.password;
+        var password = data.password;
         let passwordConfirm = data.passwordConfirm;
         // Expresiones regulares para controlar los datos introducidos y filtrarlos
         if (!usuario.match(/[a-zA-z0-9]{2,20}/g)) {
@@ -46,10 +47,13 @@ exports.register_post = (req, res) => {
             params.errorMsg = "La contraseña de confirmación debe coincidir";
         }
 
+        const salt = bcryptjs.genSaltSync(10);
+        password = bcryptjs.hashSync(password, salt);
+        
         if (validado) {
             // Consulta para comprobar que no existe ya un usuario con el mismo nombre
             sequelize.query("SELECT nombreUsuario, correo FROM usuario WHERE nombreUsuario = ? OR correo = ?", { replacements: [usuario, correo], type: sequelize.QueryTypes.SELECT })
-                .then( async (row) => {
+                .then(async (row) => {
                     if (row.length > 1) throw new Error("Se ha encontrado más de un usuario con el mismo nombre en la BBDD");
                     if (row[0] === undefined) {
                         //Lógica creación usuario si no existe uno con el mismo nombre/correo
@@ -82,7 +86,7 @@ exports.register_post = (req, res) => {
                     });
                     console.log(err);
                 });
-        }else{
+        } else {
             res.render("register", {
                 title: params.title, error: params.errorMsg, usuario: data.usuario,
                 correo: data.correo, password: data.password, passwordConfirm: data.passwordConfirm

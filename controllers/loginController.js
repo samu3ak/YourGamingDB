@@ -1,5 +1,6 @@
 const { QueryTypes } = require("sequelize");
 const sequelize = require("../models/cargarModelos").getSequelize();
+const bcryptjs = require("bcryptjs");
 // Parámetros establecidos para las opciones de renderizado de la página
 const params = {
     title: "YGDB - Login",
@@ -24,16 +25,20 @@ exports.login_post = (req, res) => {
     if (validado) {
         sequelize.query("SELECT * FROM usuario WHERE nombreUsuario = ?", { replacements: [usuario], type: sequelize.QueryTypes.SELECT })
             .then((row) => {
-                if(row.length > 1) throw new Error("Se ha encontrado más de un usuario con el mismo nombre en la BBDD");
+                if (row.length > 1) throw new Error("Se ha encontrado más de un usuario con el mismo nombre en la BBDD");
                 if (row[0] === undefined) {
                     params.errorMsg = "No existe ese usuario/contraseña";
                     res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
-                } else if (row[0].password !== password) {
-                    params.errorMsg = "Contraseña incorrecta";
-                    res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
+                } else {
+                    const passwordSuccess = bcryptjs.compareSync(password, row[0].password);
+                    if (!passwordSuccess) {
+                        params.errorMsg = "Contraseña incorrecta";
+                        res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
+                    } else {
+                        req.session.usuario = row[0];
+                        res.redirect("/");
+                    }
                 }
-                req.session.usuario = row[0];
-                res.redirect("/");
             }).catch((err) => {
                 params.errorMsg = "Ha ocurrido un error interno al intentar iniciar sesión";
                 res.render("login", { title: params.title, error: params.errorMsg, usuario: data.usuario, password: data.password });
