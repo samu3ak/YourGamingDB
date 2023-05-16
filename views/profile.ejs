@@ -6,10 +6,28 @@
       <%- include('./template/header') %>
     </header>
     <main>
-      <div class="container-fluid">
-        <div class="row justify-content-center bg-primary m-5 p-5 border border-4 border-danger">
-          <div class="col-12 text-center">
-            <h1 class="text-white">Perfil</h1>
+      <div class="container-fluid p-5">
+        <div class="row justify-content-center bg-primary p-5 border border-4 border-info">
+          <div class="col-2">
+            <h1 class="text-white mb-4">
+              <%=locals.usuario.nombreUsuario%>
+            </h1>
+            <img class="rounded-circle dropdown-toggle" src="images/default_avatar.png" alt="Avatar Image"
+              width="200px">
+          </div>
+          <div class="col-3 text-white">
+            <h3 class="text-white mb-4">Descripción</h1>
+            <p>Nada que mostrar aquí...</p>
+          </div>
+          <div class="col-3 text-white">
+            <h3 class="text-white mb-4">Información</h3>
+            <p>Seguidores: 0</p>
+            <p>Juegos jugados: 0</p>
+            <p>Juegos completados: 0</p>
+          </div>
+          <div class="col-4 text-white">
+            <h3 class="text-white mb-4">Plataformas</h3>
+            <p>ps5, xbox...</p>
           </div>
         </div>
     </main>
