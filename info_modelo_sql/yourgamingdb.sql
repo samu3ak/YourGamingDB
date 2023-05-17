@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2023 at 05:03 PM
+-- Generation Time: May 17, 2023 at 01:26 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -108,18 +108,17 @@ CREATE TABLE `usuario` (
   `nombreUsuario` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `correo` varchar(120) NOT NULL,
-  `rol` enum('usuario','administrador') DEFAULT NULL,
-  `numAmigos` int(10) DEFAULT NULL
+  `rol` enum('usuario','administrador') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`, `numAmigos`) VALUES
-(18, 'samu3ak', '$2a$10$FQfN4C4Vg/eXxMRfXlnjwuxlx1HTu3uPE3Tp1hmiKeh5GHGLe/jMq', 'samuelbolivar2003@gmail.com', 'usuario', NULL),
-(19, 'admin', '$2a$10$Y/FsTwcM2wNGJV6qlBGOO.m4T0sWxkFeZcI21d6KUfrPTHvI0tiL.', 'admin@gmail.com', 'administrador', NULL),
-(22, 'paco', '$2a$10$Ubrq0A3L8bnldm9fRrnlhO3ESqjD22NaON3KCTb/4XeoUTOB9/w9.', 'paco@gmail.com', 'usuario', NULL);
+INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`) VALUES
+(18, 'samu3ak', '$2a$10$FQfN4C4Vg/eXxMRfXlnjwuxlx1HTu3uPE3Tp1hmiKeh5GHGLe/jMq', 'samuelbolivar2003@gmail.com', 'usuario'),
+(19, 'admin', '$2a$10$Y/FsTwcM2wNGJV6qlBGOO.m4T0sWxkFeZcI21d6KUfrPTHvI0tiL.', 'admin@gmail.com', 'administrador'),
+(22, 'paco', '$2a$10$Ubrq0A3L8bnldm9fRrnlhO3ESqjD22NaON3KCTb/4XeoUTOB9/w9.', 'paco@gmail.com', 'usuario');
 
 -- --------------------------------------------------------
 

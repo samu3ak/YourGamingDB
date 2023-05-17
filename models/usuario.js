@@ -22,10 +22,6 @@ module.exports = function(sequelize, DataTypes) {
     rol: {
       type: DataTypes.ENUM('usuario','administrador'),
       allowNull: true
-    },
-    numAmigos: {
-      type: DataTypes.INTEGER,
-      allowNull: true
     }
   }, {
     sequelize,
