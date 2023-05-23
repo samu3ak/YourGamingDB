@@ -1,17 +1,38 @@
 const { QueryTypes } = require("sequelize");
-const [sequelize] = require("../models/cargarModelos").getSequelize;
+const sequelize = require("../models/cargarModelos").getSequelize();
 
 async function isFriend(userId, friendId) {
     let isFriend = true;
-    const query = await sequelize.query("SELECT estado FROM usuarioamigo WHERE id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?", { replacements: [userId, friendId], type: sequelize.QueryTypes.SELECT });
+    const query = await sequelize.query("SELECT estado FROM usuarioamigo WHERE (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?) OR (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?)",
+        {
+            replacements: [
+                userId,
+                friendId,
+                friendId,
+                userId],
+            type: sequelize.QueryTypes.SELECT
+        });
     if (query[0].estado === null || query[0].estado !== "amigo") {
         isFriend = false;
     }
     return isFriend;
 }
 
+async function getEstado(userId, friendId) {
+    const query = await sequelize.query("SELECT estado FROM usuarioamigo WHERE (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?) OR (id_usuario2_usuarioAmigo = ? AND id_usuario_usuarioAmigo = ?)",
+        {
+            replacements: [
+                userId,
+                friendId,
+                friendId,
+                userId],
+            type: sequelize.QueryTypes.SELECT
+        });
+    return query[0];
+}
+
 async function addFriend(userId, friendToAddId) {
-    const query = await sequelize.query("INSERT INTO usuarioamigo (id_usuario_usuarioAmigo, id_usuario2_usuarioAmigo, estado) VALUES (?, ?, 'pendiente')", { replacements: [userId, friendId], type: sequelize.QueryTypes.INSERT });
+    const query = await sequelize.query("INSERT INTO usuarioamigo (id_usuario_usuarioAmigo, id_usuario2_usuarioAmigo, estado) VALUES (?, ?, 'pendiente')", { replacements: [userId, friendToAddId], type: sequelize.QueryTypes.INSERT });
     console.log(query);
     return query;
 }
@@ -24,5 +45,6 @@ async function acceptFriend(id_usuarioAmigo) {
 module.exports = {
     isFriend,
     addFriend,
-    acceptFriend
+    acceptFriend,
+    getEstado
 };
