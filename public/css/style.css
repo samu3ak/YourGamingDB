@@ -38,3 +38,11 @@ main{
     cursor: pointer;
     background-color: #78beac;
 }
+
+.bandejaNotificaciones{
+    cursor: pointer;
+}
+
+.numeroNoti{
+    position: absolute;
+}

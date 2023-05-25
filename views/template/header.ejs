@@ -58,7 +58,45 @@
                                 </div>
                             </div>
                             <% }else{ %>
-                                <a href="">
+                                <!-- Button trigger modal -->
+                                <div class="bandejaNotificaciones" data-bs-toggle="modal"
+                                data-bs-target="#mpNotificaciones">
+                                    <span class="badge rounded-pill badge-notification bg-danger numeroNoti">1</span>
+                                    <img class="rounded-circle dropdown-toggle mt-2 me-2" src="images/notification_icon.png"
+                                        alt="Default Avatar Image" width="35px">
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="mpNotificaciones" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Bandeja de notificaciones</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="d-grid gap-2 pt-3 bg-info rounded">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <p class="text-white">¡<a class="text-white" href="/profile/samu3ak">samu3ak</a> te ha enviado solicitud de amistad!</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-2">
+                                                        <div class="col-12">
+                                                            <a class="btn btn-success" href="#">Aceptar</a>
+                                                            <a class="btn btn-danger" href="#">Rechazar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-center">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/profile">
                                     <p class="float-start pe-3 pt-3 text-white">Bienvenido,
                                         <%=locals.usuario.nombreUsuario%>
                                     </p>
