@@ -5,8 +5,8 @@ const md_auth = require("../middlewares/auth");
 const md_loadNotifications = require("../middlewares/loadNotifications.js");
 
 /* GET home page. */
-router.get('/', [md_auth.userLogged, md_loadNotifications.loadNotifications], profileController.profile);
+router.get('/', profileController.profile);
 
-router.get('/:username', [md_loadNotifications.loadNotifications], profileController.profileUser);
+router.get('/:username', profileController.profileUser);
 
 module.exports = router;

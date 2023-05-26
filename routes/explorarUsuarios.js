@@ -4,6 +4,6 @@ var explorarUsuariosController = require("../controllers/explorarUsuariosControl
 const md_loadNotifications = require("../middlewares/loadNotifications");
 
 /* GET home page. */
-router.get('/', [md_loadNotifications.loadNotifications], explorarUsuariosController.explorarUsuarios);
+router.get('/', explorarUsuariosController.explorarUsuarios);
 
 module.exports = router;

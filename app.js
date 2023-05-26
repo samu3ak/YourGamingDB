@@ -47,6 +47,13 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// Middlewares
+const md_Notifications = require("./middlewares/loadNotifications");
+
+// Para actualizar las notificaciones en la página
+app.use("/*", md_Notifications.loadNotifications);
+
+
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
