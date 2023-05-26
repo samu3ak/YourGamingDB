@@ -7,9 +7,17 @@ const params = {
     errorMsg: ""
 };
 
-exports.explorarUsuarios = async (req, res, next) => {
+exports.explorarUsuarios = async (req, res) => {
     var busqueda = req.query.nombreUsuario ? req.query.nombreUsuario : "";
     // Recogida de usuarios registrados con rol de usuario
     var Users = await sequelize.query("SELECT nombreUsuario FROM usuario WHERE rol = 'usuario' AND LOWER(nombreUsuario) LIKE ?", { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
     res.render("explorarUsuarios", { title: params.title, usuario: req.session.usuario, usuarios: Users, nombreUsuario: busqueda });
+};
+
+exports.getUsuarios = async (req, res) => {
+    const nombreUsuario = req.query.nombreUsuario ? req.query.nombreUsuario : "";
+    var Users = await sequelize.query("SELECT nombreUsuario FROM usuario WHERE rol = 'usuario' AND LOWER(nombreUsuario) LIKE ?", { replacements: [`%${nombreUsuario.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
+
+    res.setHeader("Content-type","text/json");
+    res.send(JSON.stringify(Users));
 };
