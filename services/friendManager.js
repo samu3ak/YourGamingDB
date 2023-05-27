@@ -42,9 +42,23 @@ async function acceptFriend(id_usuarioAmigo) {
     return query;
 }
 
+async function rejectFriend(userId, friendToReject) {
+    const query = await sequelize.query("DELETE FROM usuarioamigo WHERE (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?) OR (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?)",
+        {
+            replacements: [
+                userId,
+                friendToReject,
+                friendToReject,
+                userId],
+            type: sequelize.QueryTypes.DELETE
+        });
+    return query;
+}
+
 module.exports = {
     isFriend,
     addFriend,
     acceptFriend,
-    getEstado
+    getEstado,
+    rejectFriend
 };

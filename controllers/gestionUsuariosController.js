@@ -27,3 +27,15 @@ exports.addFriend = (req, res) => {
             res.render("errorInterno", { title: "Error 500" });
         });
 };
+
+exports.rejectFriend = (req, res) => {
+    const idUsuarioEliminar = req.params.id;
+    const idUsuario = req.session.usuario.id_usuario;
+
+    const resultado = friendManager.rejectFriend(idUsuario,idUsuarioEliminar);
+    if(resultado){
+        res.json({
+            estado: "eliminado"
+        });
+    }
+}

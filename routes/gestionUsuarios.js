@@ -8,4 +8,6 @@ router.get('/', [md_auth.userIsAdmin], gestionUsuariosController.gestionUsuarios
 
 router.post('/addFriend', [md_auth.userLogged], gestionUsuariosController.addFriend);
 
+router.delete("/rejectFriend/:id", [md_auth.userLogged], gestionUsuariosController.rejectFriend);
+
 module.exports = router;

@@ -61,7 +61,8 @@
                                 <!-- Button trigger modal -->
                                 <div class="bandejaNotificaciones" data-bs-toggle="modal"
                                     data-bs-target="#mpNotificaciones">
-                                    <% if (locals.usuarioSolicitud !== undefined && locals.usuarioSolicitud.length !==0) { %>
+                                    <% if (locals.usuarioSolicitud !==undefined && locals.usuarioSolicitud.length !==0)
+                                        { %>
                                         <span class="badge rounded-pill badge-notification bg-danger numeroNoti">
                                             <%=locals.usuarioSolicitud.length%>
                                         </span>
@@ -93,8 +94,10 @@
                                                             </div>
                                                             <div class="row pb-2">
                                                                 <div class="col-12">
-                                                                    <a class="btn btn-success" href="#">Aceptar</a>
-                                                                    <a class="btn btn-danger" href="#">Rechazar</a>
+                                                                    <button
+                                                                        class="btn btn-success acceptFriend">Aceptar</button>
+                                                                    <button
+                                                                        class="btn btn-danger rejectFriend" data-id="<%=usuario.id_usuario%>">Rechazar</button>
                                                                 </div>
                                                             </div>
                                                         </div>
