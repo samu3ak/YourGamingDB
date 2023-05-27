@@ -6,6 +6,4 @@ const md_loadNotifications = require("../middlewares/loadNotifications");
 /* GET home page. */
 router.get('/', explorarUsuariosController.explorarUsuarios);
 
-router.get("/get-usuarios", explorarUsuariosController.getUsuarios);
-
 module.exports = router;
