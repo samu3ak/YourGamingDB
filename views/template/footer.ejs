@@ -41,7 +41,7 @@
 <script>
   $(".rejectFriend").click(function (e) {
     e.preventDefault();
-    const id_usuario = $(".rejectFriend").data("id");
+    const id_usuario = $(this).data("id");
     fetch(`/gestionUsuarios/rejectFriend/${id_usuario}`, { method: "delete" })
       .then((res) => {
         window.location.reload();
