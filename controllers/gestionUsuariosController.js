@@ -28,11 +28,27 @@ exports.addFriend = (req, res) => {
         });
 };
 
-exports.rejectFriend = (req, res) => {
+exports.acceptFriend = (req, res) => {
+    const idUsuarioAceptar = req.params.id;
+    const idUsuario = req.session.usuario.id_usuario;
+
+    friendManager.acceptFriend(idUsuario, idUsuarioAceptar)
+    .then((result)=>{
+        res.json({
+            estado: "aceptado"
+        });
+    })
+    .catch((error)=>{
+        console.log(error);
+        res.render("errorInterno", {title:"500 - Error"});
+    });
+};
+
+exports.rejectFriend = async (req, res) => {
     const idUsuarioEliminar = req.params.id;
     const idUsuario = req.session.usuario.id_usuario;
 
-    const resultado = friendManager.rejectFriend(idUsuario,idUsuarioEliminar);
+    const resultado = await friendManager.rejectFriend(idUsuario,idUsuarioEliminar);
     if(resultado){
         res.json({
             estado: "eliminado"

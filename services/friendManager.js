@@ -37,8 +37,16 @@ async function addFriend(userId, friendToAddId) {
     return query;
 }
 
-async function acceptFriend(id_usuarioAmigo) {
-    const query = await sequelize.query("UPDATE usuarioamigo SET estado = 'amigo' WHERE id_usuarioAmigo = ?", { replacements: [id_usuarioAmigo], type: sequelize.QueryTypes.UPDATE });
+async function acceptFriend(idUsuario, idUsuarioAmigo) {
+    const query = await sequelize.query("UPDATE usuarioamigo SET estado = 'amigo' WHERE (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?) OR (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?)",
+        {
+            replacements: [
+                idUsuario,
+                idUsuarioAmigo,
+                idUsuarioAmigo,
+                idUsuario],
+            type: sequelize.QueryTypes.UPDATE
+        });
     return query;
 }
 

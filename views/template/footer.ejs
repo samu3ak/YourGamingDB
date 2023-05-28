@@ -45,6 +45,21 @@
     fetch(`/gestionUsuarios/rejectFriend/${id_usuario}`, { method: "delete" })
       .then((res) => {
         window.location.reload();
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
+  });
+
+  $(".acceptFriend").click(function (e) {
+    e.preventDefault();
+    const id_usuario = $(this).data("id");
+    fetch(`/gestionUsuarios/acceptFriend/${id_usuario}`, { method: "PUT" })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((error)=>{
+        console.log(error);
       });
   });
 </script>
