@@ -44,14 +44,18 @@ exports.acceptFriend = (req, res) => {
     });
 };
 
-exports.rejectFriend = async (req, res) => {
+exports.rejectFriend = (req, res) => {
     const idUsuarioEliminar = req.params.id;
     const idUsuario = req.session.usuario.id_usuario;
 
-    const resultado = await friendManager.rejectFriend(idUsuario,idUsuarioEliminar);
-    if(resultado){
+    friendManager.rejectFriend(idUsuario,idUsuarioEliminar)
+    .then((result)=>{
         res.json({
-            estado: "eliminado"
+            estado: "rechazado"
         });
-    }
+    })
+    .catch((error)=>{
+        console.log(error);
+        res.render("errorInterno", {title:"500 - Error"});
+    });
 }
