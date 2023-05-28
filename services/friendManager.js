@@ -19,7 +19,7 @@ async function isFriend(userId, friendId) {
 }
 
 async function getEstado(userId, friendId) {
-    const query = await sequelize.query("SELECT estado FROM usuarioamigo WHERE (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?) OR (id_usuario2_usuarioAmigo = ? AND id_usuario_usuarioAmigo = ?)",
+    const query = await sequelize.query("SELECT estado FROM usuarioamigo WHERE (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?) OR (id_usuario_usuarioAmigo = ? AND id_usuario2_usuarioAmigo = ?)",
         {
             replacements: [
                 userId,
