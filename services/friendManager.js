@@ -31,6 +31,17 @@ async function getEstado(userId, friendId) {
     return query[0];
 }
 
+async function getFriends(userId) {
+    const query = await sequelize.query("(SELECT * FROM usuario u WHERE u.id_usuario = (SELECT a.id_usuario2_usuarioAmigo FROM usuarioamigo a WHERE a.id_usuario_usuarioAmigo = ? AND a.estado = 'amigo')) UNION (SELECT * FROM usuario u WHERE u.id_usuario = (SELECT a.id_usuario_usuarioAmigo FROM usuarioamigo a WHERE a.id_usuario2_usuarioAmigo = ? AND a.estado = 'amigo')))",
+        {
+            replacements: [
+                userId,
+                userId],
+            type: sequelize.QueryTypes.SELECT
+        });
+    return query[0];
+}
+
 async function addFriend(userId, friendToAddId) {
     const query = await sequelize.query("INSERT INTO usuarioamigo (id_usuario_usuarioAmigo, id_usuario2_usuarioAmigo, estado) VALUES (?, ?, 'pendiente')", { replacements: [userId, friendToAddId], type: sequelize.QueryTypes.INSERT });
     console.log(query);
