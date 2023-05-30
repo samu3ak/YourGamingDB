@@ -27,7 +27,29 @@
                 <% if (estadoAmistad.estado==="pendiente" ) { %>
                   <button class="btn btn-warning mt-4 border border-2 rounded">Pendiente</button>
                   <% }else{ %>
-                    <button class="btn btn-success mt-4 border border-2 rounded">Amigo</button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mt-4 border border-2 rounded mpAmigo"
+                      data-bs-toggle="modal" data-bs-target="#mpAmigo">Amigo</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="mpAmigo" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">¿Estás seguro que quieres dejar de ser amigo de
+                              <%=usuarioPerfil.nombreUsuario%>?
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body text-center">
+                            <div class="d-grid gap-2">
+                              <button type="button" class="btn btn-danger p-3 rejectFriend"
+                                data-id="<%=usuarioPerfil.id_usuario%>">Si</button>
+                              <button type="button" class="btn btn-primary p-3" data-bs-dismiss="modal">No</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <% }%>
                       <%}%>
           </div>
@@ -50,6 +72,18 @@
     <%- include('./template/footer') %>
       <!-- Bootstrap JavaScript Libraries -->
       <script src="js/bootstrap.min.js"></script>
+      <script>
+        $(".mpAmigo").hover(function () {
+          // over
+          $(this).css("background-color", "#ff7851");
+          $(this).text("Eliminar");
+        }, function () {
+          // out
+          $(this).css("background-color", "#56cc9d");
+          $(this).text("Amigo");
+        }
+        );
+      </script>
   </body>
 
   </html>
