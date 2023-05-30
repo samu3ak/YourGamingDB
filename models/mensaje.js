@@ -27,6 +27,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: Sequelize.Sequelize.fn('current_timestamp')
+    },
+    texto: {
+      type: DataTypes.STRING(255),
+      allowNull: false
     }
   }, {
     sequelize,

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2023 at 04:07 PM
+-- Generation Time: May 30, 2023 at 04:14 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -56,7 +56,8 @@ CREATE TABLE `mensaje` (
   `id_mensaje` int(11) NOT NULL,
   `id_usuario_mensaje` int(11) NOT NULL,
   `id_usuario2_mensaje` int(11) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp()
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `texto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
