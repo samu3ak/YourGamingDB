@@ -31,7 +31,7 @@ main{
 .listaAmigos {
     width: 280px;
     max-height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: #7ec5b2;
     display: none;
 }
