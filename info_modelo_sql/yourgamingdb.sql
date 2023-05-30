@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2023 at 04:14 PM
+-- Generation Time: May 30, 2023 at 05:47 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -56,9 +56,17 @@ CREATE TABLE `mensaje` (
   `id_mensaje` int(11) NOT NULL,
   `id_usuario_mensaje` int(11) NOT NULL,
   `id_usuario2_mensaje` int(11) NOT NULL,
-  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   `texto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mensaje`
+--
+
+INSERT INTO `mensaje` (`id_mensaje`, `id_usuario_mensaje`, `id_usuario2_mensaje`, `fecha`, `texto`) VALUES
+(2, 18, 23, '2023-05-30 00:00:00', 'Buenos días esto es una prueba'),
+(3, 23, 18, '2023-05-30 00:00:00', 'Mensaje de samu3ak2 uwuuuuu test');
 
 -- --------------------------------------------------------
 
@@ -245,7 +253,7 @@ ALTER TABLE `juegoplataforma`
 -- AUTO_INCREMENT for table `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `perfilusuario`
