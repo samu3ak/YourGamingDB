@@ -6,6 +6,6 @@ const md_auth = require("../middlewares/auth");
 /* GET home page. */
 router.get('/', [md_auth.userLogged], profileController.profile);
 
-router.get('/:username', profileController.profileUser);
+router.get('/:username', [md_auth.userExists], profileController.profileUser);
 
 module.exports = router;

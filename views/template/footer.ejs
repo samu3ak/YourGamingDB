@@ -8,9 +8,11 @@
         <div class="listaAmigos float-end text-center">
           <% if (locals.amigos) { %>
             <% amigos.forEach(amigo=> { %>
-              <div class="col-12 chatUsuario pt-3 pb-3">
-                <%=amigo.nombreUsuario%>
-              </div>
+              <a class="text-white text-decoration-none" href="/chat/<%=amigo.nombreUsuario%>">
+                <div class="col-12 chatUsuario pt-3 pb-3">
+                  <%=amigo.nombreUsuario%>
+                </div>
+              </a>
               <% }) %>
                 <% }else{ %>
                   <div class="col-12 chatUsuario pt-3 pb-3">

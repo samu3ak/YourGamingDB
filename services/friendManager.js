@@ -12,7 +12,7 @@ async function isFriend(userId, friendId) {
                 userId],
             type: sequelize.QueryTypes.SELECT
         });
-    if (query[0].estado === null || query[0].estado !== "amigo") {
+    if (query[0] === undefined || query[0].estado === null || query[0].estado !== "amigo") {
         isFriend = false;
     }
     return isFriend;
@@ -78,11 +78,40 @@ async function rejectFriend(userId, friendToReject) {
     return query;
 }
 
+async function loadMessages(userId, userFriendId) {
+    const query = await sequelize.query("SELECT * FROM mensaje WHERE (id_usuario_mensaje = ? OR id_usuario2_mensaje = ?) AND (id_usuario_mensaje = ? OR id_usuario2_mensaje = ?) ORDER BY id_mensaje ASC",
+        {
+            replacements: [
+                userId,
+                userId,
+                userFriendId,
+                userFriendId],
+            type: sequelize.QueryTypes.SELECT
+        });
+    if (query[0] === undefined) {
+        return undefined;
+    }
+    return query;
+}
+
+async function sendMessage(userId, userFriendId, msg) {
+    const query = await sequelize.query("INSERT INTO mensaje (id_mensaje, id_usuario_mensaje, id_usuario2_mensaje, fecha, texto) VALUES (NULL, ?, ?, current_timestamp(), ?)",
+        {
+            replacements: [userId,
+                userFriendId,
+                msg],
+            type: sequelize.QueryTypes.INSERT
+        });
+    return query;
+}
+
 module.exports = {
     isFriend,
     addFriend,
     acceptFriend,
     getEstado,
     rejectFriend,
-    getFriends
+    getFriends,
+    loadMessages,
+    sendMessage
 };

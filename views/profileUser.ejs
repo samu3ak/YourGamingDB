@@ -27,6 +27,10 @@
                 <% if (estadoAmistad.estado==="pendiente" ) { %>
                   <button class="btn btn-warning mt-4 border border-2 rounded">Pendiente</button>
                   <% }else{ %>
+                    <div class="row mt-3">
+                      <a class="btn btn-warning text-black rounded border border-2"
+                        href="/chat/<%=usuarioPerfil.nombreUsuario%>">Enviar mensaje</a>
+                    </div>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success mt-4 border border-2 rounded mpAmigo"
                       data-bs-toggle="modal" data-bs-target="#mpAmigo">Amigo</button>

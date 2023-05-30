@@ -24,7 +24,7 @@ exports.addFriend = (req, res) => {
         })
         .catch((err) => {
             console.log(err);
-            res.render("errorInterno", { title: "Error 500" });
+            res.render("errorInterno", { title: "500 - Error" });
         });
 };
 

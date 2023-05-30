@@ -27,6 +27,7 @@ var registerRouter = require('./routes/register');
 var profileRouter = require('./routes/profile');
 var gestionUsuariosRouter = require('./routes/gestionUsuarios');
 var explorarUsuariosRouter = require("./routes/explorarUsuarios");
+var chatRouter = require("./routes/chat");
 const { profile } = require('console');
 
 var app = express();
@@ -50,6 +51,7 @@ app.use(session({
 // Middlewares
 const md_Notifications = require("./middlewares/loadNotifications");
 const md_Amigos = require("./middlewares/loadFriends");
+const { chat } = require('./controllers/chatController');
 
 // Para actualizar las notificaciones
 app.use("/*", md_Notifications.loadNotifications);
@@ -63,6 +65,7 @@ app.use('/register', registerRouter);
 app.use('/profile', profileRouter);
 app.use('/gestionUsuarios', gestionUsuariosRouter);
 app.use('/explorarUsuarios', explorarUsuariosRouter);
+app.use('/chat', chatRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
