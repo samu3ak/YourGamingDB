@@ -23,14 +23,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id_usuario'
       }
     },
+    texto: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     fecha: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: Sequelize.Sequelize.fn('current_timestamp')
-    },
-    texto: {
-      type: DataTypes.STRING(255),
-      allowNull: false
     }
   }, {
     sequelize,
