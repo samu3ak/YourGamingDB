@@ -69,7 +69,6 @@ exports.register_post = (req, res) => {
                         // Ya existe un usuario con dicho nombre/correo
                         if (row[0].nombreUsuario === usuario) {
                             params.errorMsg = "Ya existe un usuario con ese nombre"
-                            console.log(usuario);
                         } else {
                             params.errorMsg = "Ya existe una cuenta registrada con esa dirección de correo electrónico"
                         }

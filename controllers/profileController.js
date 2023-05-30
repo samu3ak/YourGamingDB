@@ -24,7 +24,6 @@ exports.profileUser = async (req, res) => {
     } else {
         if (usuarioLogueado) {
             estadoAmistad = await friendManager.getEstado(usuarioLogueado.id_usuario, usuario.id_usuario);
-            console.log(estadoAmistad);
         }
         if (usuario) {
             res.render("profileUser", { title: params.title + `${username}`, usuarioPerfil: usuario, usuario: usuarioLogueado, estadoAmistad: estadoAmistad });

@@ -47,7 +47,6 @@ async function getFriends(userId) {
 
 async function addFriend(userId, friendToAddId) {
     const query = await sequelize.query("INSERT INTO usuarioamigo (id_usuario_usuarioAmigo, id_usuario2_usuarioAmigo, estado) VALUES (?, ?, 'pendiente')", { replacements: [userId, friendToAddId], type: sequelize.QueryTypes.INSERT });
-    console.log(query);
     return query;
 }
 
