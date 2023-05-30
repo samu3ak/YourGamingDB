@@ -22,6 +22,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'usuario',
         key: 'id_usuario'
       }
+    },
+    fecha: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      defaultValue: Sequelize.Sequelize.fn('current_timestamp')
     }
   }, {
     sequelize,

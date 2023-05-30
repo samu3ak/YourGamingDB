@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2023 at 01:26 PM
+-- Generation Time: May 30, 2023 at 04:07 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -55,7 +55,8 @@ CREATE TABLE `juegoplataforma` (
 CREATE TABLE `mensaje` (
   `id_mensaje` int(11) NOT NULL,
   `id_usuario_mensaje` int(11) NOT NULL,
-  `id_usuario2_mensaje` int(11) NOT NULL
+  `id_usuario2_mensaje` int(11) NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -118,7 +119,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`) VALUES
 (18, 'samu3ak', '$2a$10$FQfN4C4Vg/eXxMRfXlnjwuxlx1HTu3uPE3Tp1hmiKeh5GHGLe/jMq', 'samuelbolivar2003@gmail.com', 'usuario'),
 (19, 'admin', '$2a$10$Y/FsTwcM2wNGJV6qlBGOO.m4T0sWxkFeZcI21d6KUfrPTHvI0tiL.', 'admin@gmail.com', 'administrador'),
-(22, 'paco', '$2a$10$Ubrq0A3L8bnldm9fRrnlhO3ESqjD22NaON3KCTb/4XeoUTOB9/w9.', 'paco@gmail.com', 'usuario');
+(22, 'paco', '$2a$10$Ubrq0A3L8bnldm9fRrnlhO3ESqjD22NaON3KCTb/4XeoUTOB9/w9.', 'paco@gmail.com', 'usuario'),
+(23, 'samu3ak2', '$2a$10$sZHZSMn4ABFoakr3pciNP.nU0T0mYvgJp774fdudlVWcUDGMyePI6', 'samuelbolivar2004@gmail.com', 'usuario');
 
 -- --------------------------------------------------------
 
@@ -132,6 +134,14 @@ CREATE TABLE `usuarioamigo` (
   `id_usuario2_usuarioAmigo` int(11) NOT NULL,
   `estado` enum('pendiente','amigo') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usuarioamigo`
+--
+
+INSERT INTO `usuarioamigo` (`id_usuarioAmigo`, `id_usuario_usuarioAmigo`, `id_usuario2_usuarioAmigo`, `estado`) VALUES
+(12, 23, 18, 'amigo'),
+(13, 22, 18, 'amigo');
 
 -- --------------------------------------------------------
 
@@ -258,13 +268,13 @@ ALTER TABLE `plataforma`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `usuarioamigo`
 --
 ALTER TABLE `usuarioamigo`
-  MODIFY `id_usuarioAmigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuarioAmigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `usuarioplataforma`
