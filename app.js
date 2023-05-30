@@ -49,9 +49,12 @@ app.use(session({
 
 // Middlewares
 const md_Notifications = require("./middlewares/loadNotifications");
+const md_Amigos = require("./middlewares/loadFriends");
 
-// Para actualizar las notificaciones en la página
+// Para actualizar las notificaciones
 app.use("/*", md_Notifications.loadNotifications);
+// Para cargar la lista de amigos
+app.use("/*", md_Amigos.loadFriends);
 
 
 app.use('/', indexRouter);

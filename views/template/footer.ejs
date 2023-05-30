@@ -3,18 +3,20 @@
     <div class="col-1">
       <% if (locals.usuario) { %>
         <div class="listaAmigosButton rounded-top float-end pt-2 text-center">
-          <img class="img-fluid" src="images/users_icon.png" alt="Friend Icon" width="40px"> Lista de Chats
+          <img class="img-fluid" src="images/users_icon.png" alt="Friend Icon" width="40px"> Lista de Amigos
         </div>
         <div class="listaAmigos float-end text-center">
-          <div class="col-12 chatUsuario pt-3 pb-3">
-            Chat1...
-          </div>
-          <div class="col-12 chatUsuario pt-3 pb-3">
-            Chat2...
-          </div>
-          <div class="col-12 chatUsuario pt-3 pb-3">
-            Chat3...
-          </div>
+          <% if (locals.amigos) { %>
+            <% amigos.forEach(amigo=> { %>
+              <div class="col-12 chatUsuario pt-3 pb-3">
+                <%=amigo.nombreUsuario%>
+              </div>
+              <% }) %>
+                <% }else{ %>
+                  <div class="col-12 chatUsuario pt-3 pb-3">
+                    <a class="text-white" href="/explorarUsuarios">¡Explorar usuarios en la comunidad!</a>
+                  </div>
+                  <% }%>
         </div>
         <% } %>
     </div>
@@ -46,7 +48,7 @@
       .then((res) => {
         window.location.reload();
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error);
       });
   });
@@ -58,7 +60,7 @@
       .then((res) => {
         window.location.reload();
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error);
       });
   });

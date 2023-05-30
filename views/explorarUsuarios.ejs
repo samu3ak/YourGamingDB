@@ -30,19 +30,28 @@
                 <div class="row gap-1">
                   <% usuarios.forEach(usuario=> { %>
                     <a class="col-2 userBox text-center p-2 border border-2 rounded border-info"
-                    href="profile/<%=usuario.nombreUsuario%>">
+                      href="profile/<%=usuario.nombreUsuario%>">
                       <div class="col-12 text-center">
                         <%=usuario.nombreUsuario%>
                           <img class="rounded-circle ms-3 img-fluid" src="images/default_avatar.png"
                             alt="Default Avatar Image" width="80px">
                       </div>
                       <div class="row pt-3">
-                        <div class="col-12">
-                          Seguidores: 0
-                        </div>
-                        <div class="col-12">
-                          Juegos jugados: 0
-                        </div>
+                        <% if (locals.amigos) { %>
+                          <% amigos.forEach(amigo=> { %>
+                            <% if (amigo.nombreUsuario===usuario.nombreUsuario) { %>
+                              <div class="col-12 p-1 pb-2">
+                                <button class="btn btn-success">Amigo</button>
+                              </div>
+                              <% } %>
+                                <% }) %>
+                                  <% } %>
+                                    <div class="col-12">
+                                      Seguidores: 0
+                                    </div>
+                                    <div class="col-12">
+                                      Juegos jugados: 0
+                                    </div>
                       </div>
                     </a>
                     <% }) %>

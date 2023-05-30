@@ -32,14 +32,17 @@ async function getEstado(userId, friendId) {
 }
 
 async function getFriends(userId) {
-    const query = await sequelize.query("(SELECT * FROM usuario u WHERE u.id_usuario = (SELECT a.id_usuario2_usuarioAmigo FROM usuarioamigo a WHERE a.id_usuario_usuarioAmigo = ? AND a.estado = 'amigo')) UNION (SELECT * FROM usuario u WHERE u.id_usuario = (SELECT a.id_usuario_usuarioAmigo FROM usuarioamigo a WHERE a.id_usuario2_usuarioAmigo = ? AND a.estado = 'amigo')))",
+    const query = await sequelize.query("(SELECT * FROM usuario u WHERE u.id_usuario = (SELECT a.id_usuario2_usuarioAmigo FROM usuarioamigo a WHERE a.id_usuario_usuarioAmigo = ? AND a.estado = 'amigo')) UNION (SELECT * FROM usuario u WHERE u.id_usuario = (SELECT a.id_usuario_usuarioAmigo FROM usuarioamigo a WHERE a.id_usuario2_usuarioAmigo = ? AND a.estado = 'amigo'))",
         {
             replacements: [
                 userId,
                 userId],
             type: sequelize.QueryTypes.SELECT
         });
-    return query[0];
+    if(query[0] === undefined){
+        return undefined;
+    }
+    return query;
 }
 
 async function addFriend(userId, friendToAddId) {
@@ -79,5 +82,6 @@ module.exports = {
     addFriend,
     acceptFriend,
     getEstado,
-    rejectFriend
+    rejectFriend,
+    getFriends
 };

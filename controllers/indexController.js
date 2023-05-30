@@ -5,10 +5,10 @@ const params = {
 };
 
 exports.index = (req, res) => {
-    res.render("index", { title: params.title, usuario: req.session.usuario, usuarioSolicitud: res.locals.usuarioSolicitud });
+    res.render("index", { title: params.title, usuario: req.session.usuario });
 };
 
 exports.logout = (req, res) => {
     req.session.destroy();
-    res.render("index", { title: params.title, usuarioSolicitud: res.locals.usuarioSolicitud });
+    res.render("index", { title: params.title });
 };
