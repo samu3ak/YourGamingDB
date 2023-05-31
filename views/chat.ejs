@@ -12,7 +12,7 @@
           <div class="col-12">
             <h1 class="text-white text-center">Chat con <%=locals.usuarioChat.nombreUsuario%>
             </h1>
-            <div class="row p-5 mt-5 bg-info rounded-top border-top border-start border-end border-3 chatBox">
+            <div class="row p-5 mt-5 bg-info rounded-top border-top border-start border-end border-3 chatBox text-dark fw-bold">
               <% if (locals.mensajes) { %>
                 <% mensajes.forEach(mensaje=> { %>
                   <div class="row message <% if (mensaje.id_usuario_mensaje === usuario.id_usuario) { %>
