@@ -8,12 +8,26 @@ const params = {
     errorMsg: ""
 };
 
-exports.gestionUsuarios = async (req, res, next) => {
+exports.gestionUsuarios = async (req, res) => {
     var busqueda = req.query.nombreUsuario ? req.query.nombreUsuario : "";
     // Recogida de usuarios registrados con rol de usuario
     var Users = await sequelize.query("SELECT id_usuario, nombreUsuario, correo, rol FROM usuario WHERE rol = 'usuario' AND LOWER(nombreUsuario) LIKE ?", { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
     res.render("gestionUsuarios", { title: params.title, usuario: req.session.usuario, usuarios: Users, nombreUsuario: busqueda });
 };
+
+exports.gestionarUsuario = async (req, res) => {
+    const usuarioGestionar = await Usuario.findByPk(req.params.id);
+    const mensajesUsuario = await friendManager.getMessages(usuarioGestionar.id_usuario);
+    var nombreDestinatario = new Array();
+    for (const mensaje of mensajesUsuario) {
+        var Users = await sequelize.query("SELECT nombreUsuario from usuario WHERE id_usuario = ?", { replacements: [mensaje.id_usuario2_mensaje], type: sequelize.QueryTypes.SELECT });
+        nombreDestinatario.push(Users[0].nombreUsuario)
+    }
+    res.render("gestionarUsuario", {
+        title: `YGDB - Gestionar - ${usuarioGestionar.nombreUsuario}`, usuario: req.session.usuario, usuarioGestionar: usuarioGestionar,
+        mensajesUsuario: mensajesUsuario, nombreDestinatario: nombreDestinatario
+    });
+}
 
 exports.addFriend = (req, res) => {
     const body = req.body;
@@ -33,29 +47,29 @@ exports.acceptFriend = (req, res) => {
     const idUsuario = req.session.usuario.id_usuario;
 
     friendManager.acceptFriend(idUsuario, idUsuarioAceptar)
-    .then((result)=>{
-        res.json({
-            estado: "aceptado"
+        .then((result) => {
+            res.json({
+                estado: "aceptado"
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.render("errorInterno", { title: "500 - Error" });
         });
-    })
-    .catch((error)=>{
-        console.log(error);
-        res.render("errorInterno", {title:"500 - Error"});
-    });
 };
 
 exports.rejectFriend = (req, res) => {
     const idUsuarioEliminar = req.params.id;
     const idUsuario = req.session.usuario.id_usuario;
 
-    friendManager.rejectFriend(idUsuario,idUsuarioEliminar)
-    .then((result)=>{
-        res.json({
-            estado: "rechazado"
+    friendManager.rejectFriend(idUsuario, idUsuarioEliminar)
+        .then((result) => {
+            res.json({
+                estado: "rechazado"
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.render("errorInterno", { title: "500 - Error" });
         });
-    })
-    .catch((error)=>{
-        console.log(error);
-        res.render("errorInterno", {title:"500 - Error"});
-    });
 }

@@ -1,0 +1,59 @@
+<%- include('./template/head') %>
+  </head>
+
+  <body>
+    <header>
+      <%- include('./template/header') %>
+    </header>
+    <main>
+      <div class="container-fluid p-5">
+        <div class="row justify-content-center bg-primary p-5 rounded rounded-2">
+          <% if (locals.error) { %>
+            <p>
+              <%=locals.error%>
+            </p>
+            <% } %>
+              <div class="col-12 text-center">
+                <h1 class="text-white">
+                  <%=usuarioGestionar.nombreUsuario%>
+                </h1>
+                <img class="img-fluid" src="images/users_icon.png" alt="Friend Icon" width="80px">
+
+                <div class="row mt-5">
+                  <h1 class="text-white">Historial de mensajes del usuario</h1>
+                  <table class="table table-hover border border-3 border-info bg-info mt-3">
+                    <thead>
+                      <tr class="text-black">
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Mensaje</th>
+                        <th scope="col">Destinatario</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% var i=0; %>
+                        <% mensajesUsuario.forEach(mensaje=> { %>
+                          <tr class="table-light border border-2 border-info">
+                            <th scope="row">
+                              <%=mensaje.fecha%>
+                            </th>
+                            <td>
+                              <%=mensaje.texto%>
+                            </td>
+                            <td>
+                              <%=nombreDestinatario[i]%>
+                            </td>
+                          </tr>
+                          <% i+=1 %>
+                            <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+    </main>
+    <%- include('./template/footer') %>
+      <!-- Bootstrap JavaScript Libraries -->
+      <script src="js/bootstrap.min.js"></script>
+  </body>
+
+  </html>

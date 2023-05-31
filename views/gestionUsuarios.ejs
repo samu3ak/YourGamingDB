@@ -15,14 +15,15 @@
             </p>
             <% } %>
               <div class="col-12 text-center">
-                <h1 class="text-white">Gestion de usuarios</h1>
+                <h1 class="text-white">Gestión de usuarios</h1>
                 <img class="img-fluid" src="images/users_icon.png" alt="Friend Icon" width="80px">
                 <p class="text-white pt-3 fw-bold">Haga click sobre un usuario para gestionarlo</p>
 
                 <form action="/gestionUsuarios" method="GET">
                   <div id="searchBar" class="col-12 form-outline p-5 d-flex justify-content-center">
                     <input id="searchField" type="text" class="form-control float-start"
-                      placeholder="Buscar nombre de usuario..." name="nombreUsuario" value="<%=locals.nombreUsuario%>" />
+                      placeholder="Buscar nombre de usuario..." name="nombreUsuario"
+                      value="<%=locals.nombreUsuario%>" />
                     <button type="submit" id="searchButton" class="btn">
                       Ejecutar búsqueda<img class="img-fluid ms-2" src="images/search_icon.png"
                         alt="Magnifying glass for search icon" width="20px"></button>
@@ -40,7 +41,8 @@
                   </thead>
                   <tbody>
                     <% usuarios.forEach(usuario=> { %>
-                      <tr class="table-light border border-2 border-dark">
+                      <tr class="table-light border border-2 border-dark gestionarUsuario"
+                        data-id="<%=usuario.id_usuario%>">
                         <th scope="row">
                           <%=usuario.id_usuario%>
                         </th>
@@ -63,6 +65,13 @@
     <%- include('./template/footer') %>
       <!-- Bootstrap JavaScript Libraries -->
       <script src="js/bootstrap.min.js"></script>
+      <script>
+        $(".gestionarUsuario").click(function (e) {
+          e.preventDefault();
+          const idUsuario = $(this).data("id");
+          window.location.href = `/gestionUsuarios/${idUsuario}`;
+        });
+      </script>
   </body>
 
   </html>

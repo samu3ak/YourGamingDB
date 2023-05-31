@@ -6,6 +6,8 @@ const md_auth = require("../middlewares/auth");
 /* GET home page. */
 router.get('/', [md_auth.userIsAdmin], gestionUsuariosController.gestionUsuarios);
 
+router.get("/:id", [md_auth.userIsAdmin], gestionUsuariosController.gestionarUsuario);
+
 router.post('/addFriend', [md_auth.userLogged], gestionUsuariosController.addFriend);
 
 router.put("/acceptFriend/:id", [md_auth.userLogged], gestionUsuariosController.acceptFriend);

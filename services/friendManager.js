@@ -94,6 +94,19 @@ async function loadMessages(userId, userFriendId) {
     return query;
 }
 
+async function getMessages(userId) {
+    const query = await sequelize.query("SELECT * FROM mensaje WHERE id_usuario_mensaje = ?",
+        {
+            replacements: [
+                userId],
+            type: sequelize.QueryTypes.SELECT
+        });
+    if (query[0] === undefined) {
+        return undefined;
+    }
+    return query;
+}
+
 async function sendMessage(userId, userFriendId, msg) {
     const query = await sequelize.query("INSERT INTO mensaje (id_mensaje, id_usuario_mensaje, id_usuario2_mensaje, fecha, texto) VALUES (NULL, ?, ?, current_timestamp(), ?)",
         {
@@ -113,5 +126,6 @@ module.exports = {
     rejectFriend,
     getFriends,
     loadMessages,
-    sendMessage
+    sendMessage,
+    getMessages
 };
