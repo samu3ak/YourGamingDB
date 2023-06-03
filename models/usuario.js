@@ -22,6 +22,11 @@ module.exports = function(sequelize, DataTypes) {
     rol: {
       type: DataTypes.ENUM('usuario','administrador'),
       allowNull: true
+    },
+    baneado: {
+      type: DataTypes.ENUM('SI','NO'),
+      allowNull: false,
+      defaultValue: "NO"
     }
   }, {
     sequelize,

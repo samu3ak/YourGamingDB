@@ -49,11 +49,47 @@
                   </table>
                 </div>
               </div>
+              <div class="col-12 text-center">
+                <% if (usuarioGestionar.baneado !=="SI" ) { %>
+                  <button class="btn btn-warning p-3 text-dark fw-bold me-3 banButton"
+                    data-id="<%=usuarioGestionar.id_usuario%>">Banear chat de texto</button>
+                  <% }else{ %>
+                    <button class="btn btn-info p-3 text-dark fw-bold me-3 unbanButton"
+                      data-id="<%=usuarioGestionar.id_usuario%>">Habilitar chat de texto</button>
+                    <%}%>
+                      <button class="btn btn-danger p-3 text-dark fw-bold ms-3 deleteUserButton"
+                        data-id="<%=usuarioGestionar.id_usuario%>">Eliminar
+                        usuario</button>
+              </div>
         </div>
     </main>
     <%- include('./template/footer') %>
       <!-- Bootstrap JavaScript Libraries -->
       <script src="js/bootstrap.min.js"></script>
+      <script>
+        $(".banButton").click(function (e) {
+          e.preventDefault();
+          const idUsuario = $(this).data("id");
+          fetch(`/gestionUsuarios/banUser/${idUsuario}`, { method: "PUT" })
+            .then((res) => {
+              window.location.reload();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+        $(".unbanButton").click(function (e) {
+          e.preventDefault();
+          const idUsuario = $(this).data("id");
+          fetch(`/gestionUsuarios/unbanUser/${idUsuario}`, { method: "PUT" })
+            .then((res) => {
+              window.location.reload();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+      </script>
   </body>
 
   </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2023 at 06:04 PM
+-- Generation Time: Jun 03, 2023 at 08:03 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -65,7 +65,13 @@ CREATE TABLE `mensaje` (
 --
 
 INSERT INTO `mensaje` (`id_mensaje`, `id_usuario_mensaje`, `id_usuario2_mensaje`, `texto`, `fecha`) VALUES
-(15, 18, 23, 'qwe', '2023-05-30');
+(24, 18, 23, 'Buenos días', '2023-05-30'),
+(25, 23, 18, 'Ey', '2023-05-30'),
+(26, 18, 23, 'como estas', '2023-05-30'),
+(27, 23, 18, 'Bien, y tú?', '2023-05-30'),
+(28, 22, 18, 'wqe', '2023-05-30'),
+(29, 18, 22, 'qwe', '2023-05-30'),
+(30, 18, 22, 'TUS CASTAS TOAAS', '2023-05-31');
 
 -- --------------------------------------------------------
 
@@ -117,18 +123,19 @@ CREATE TABLE `usuario` (
   `nombreUsuario` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `correo` varchar(120) NOT NULL,
-  `rol` enum('usuario','administrador') DEFAULT NULL
+  `rol` enum('usuario','administrador') DEFAULT NULL,
+  `baneado` enum('SI','NO') NOT NULL DEFAULT 'NO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`) VALUES
-(18, 'samu3ak', '$2a$10$FQfN4C4Vg/eXxMRfXlnjwuxlx1HTu3uPE3Tp1hmiKeh5GHGLe/jMq', 'samuelbolivar2003@gmail.com', 'usuario'),
-(19, 'admin', '$2a$10$Y/FsTwcM2wNGJV6qlBGOO.m4T0sWxkFeZcI21d6KUfrPTHvI0tiL.', 'admin@gmail.com', 'administrador'),
-(22, 'paco', '$2a$10$Ubrq0A3L8bnldm9fRrnlhO3ESqjD22NaON3KCTb/4XeoUTOB9/w9.', 'paco@gmail.com', 'usuario'),
-(23, 'samu3ak2', '$2a$10$sZHZSMn4ABFoakr3pciNP.nU0T0mYvgJp774fdudlVWcUDGMyePI6', 'samuelbolivar2004@gmail.com', 'usuario');
+INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`, `baneado`) VALUES
+(18, 'samu3ak', '$2a$10$FQfN4C4Vg/eXxMRfXlnjwuxlx1HTu3uPE3Tp1hmiKeh5GHGLe/jMq', 'samuelbolivar2003@gmail.com', 'usuario', 'NO'),
+(19, 'admin', '$2a$10$Y/FsTwcM2wNGJV6qlBGOO.m4T0sWxkFeZcI21d6KUfrPTHvI0tiL.', 'admin@gmail.com', 'administrador', 'NO'),
+(22, 'paco', '$2a$10$Ubrq0A3L8bnldm9fRrnlhO3ESqjD22NaON3KCTb/4XeoUTOB9/w9.', 'paco@gmail.com', 'usuario', 'NO'),
+(23, 'samu3ak2', '$2a$10$sZHZSMn4ABFoakr3pciNP.nU0T0mYvgJp774fdudlVWcUDGMyePI6', 'samuelbolivar2004@gmail.com', 'usuario', 'NO');
 
 -- --------------------------------------------------------
 
@@ -252,7 +259,7 @@ ALTER TABLE `juegoplataforma`
 -- AUTO_INCREMENT for table `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `perfilusuario`

@@ -36,6 +36,7 @@
                       <th scope="col">Id</th>
                       <th scope="col">Nombre usuario</th>
                       <th scope="col">Correo electrónico</th>
+                      <th scope="col">Tiene chat baneado</th>
                       <th scope="col">Rol</th>
                     </tr>
                   </thead>
@@ -51,6 +52,9 @@
                         </td>
                         <td>
                           <%=usuario.correo%>
+                        </td>
+                        <td>
+                          <%=usuario.baneado%>
                         </td>
                         <td>
                           <%=usuario.rol%>
