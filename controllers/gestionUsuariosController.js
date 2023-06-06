@@ -19,9 +19,11 @@ exports.gestionarUsuario = async (req, res) => {
     const usuarioGestionar = await Usuario.findByPk(req.params.id);
     const mensajesUsuario = await friendManager.getMessages(usuarioGestionar.id_usuario);
     var nombreDestinatario = new Array();
-    for (const mensaje of mensajesUsuario) {
-        var Users = await sequelize.query("SELECT nombreUsuario from usuario WHERE id_usuario = ?", { replacements: [mensaje.id_usuario2_mensaje], type: sequelize.QueryTypes.SELECT });
-        nombreDestinatario.push(Users[0].nombreUsuario)
+    if (mensajesUsuario !== undefined) {
+        for (const mensaje of mensajesUsuario) {
+            var Users = await sequelize.query("SELECT nombreUsuario from usuario WHERE id_usuario = ?", { replacements: [mensaje.id_usuario2_mensaje], type: sequelize.QueryTypes.SELECT });
+            nombreDestinatario.push(Users[0].nombreUsuario)
+        }
     }
     res.render("gestionarUsuario", {
         title: `YGDB - Gestionar - ${usuarioGestionar.nombreUsuario}`, usuario: req.session.usuario, usuarioGestionar: usuarioGestionar,
@@ -94,6 +96,20 @@ exports.unbanUser = (req, res) => {
         .then((result) => {
             res.json({
                 estado: "Desbaneado"
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.render("errorInterno", { title: "500 - Error" });
+        });;
+};
+
+exports.deleteUser = (req, res) => {
+    const idUsuario = req.params.id;
+    sequelize.query("DELETE FROM usuario WHERE id_usuario = ?", { replacements: [idUsuario], type: sequelize.QueryTypes.DELETE })
+        .then((result) => {
+            res.json({
+                estado: "Usuario eliminado"
             });
         })
         .catch((error) => {

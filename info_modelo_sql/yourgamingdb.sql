@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2023 at 08:03 PM
+-- Generation Time: Jun 06, 2023 at 07:32 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -71,7 +71,11 @@ INSERT INTO `mensaje` (`id_mensaje`, `id_usuario_mensaje`, `id_usuario2_mensaje`
 (27, 23, 18, 'Bien, y tú?', '2023-05-30'),
 (28, 22, 18, 'wqe', '2023-05-30'),
 (29, 18, 22, 'qwe', '2023-05-30'),
-(30, 18, 22, 'TUS CASTAS TOAAS', '2023-05-31');
+(30, 18, 22, 'TUS CASTAS TOAAS', '2023-05-31'),
+(32, 18, 23, 'hola', '2023-06-06'),
+(33, 18, 23, 'test', '2023-06-06'),
+(34, 18, 23, '123', '2023-06-06'),
+(35, 18, 22, 'djqwnjldnqwiojdnqwjlkdqwlndlqkjwnwq', '2023-06-06');
 
 -- --------------------------------------------------------
 
@@ -259,7 +263,7 @@ ALTER TABLE `juegoplataforma`
 -- AUTO_INCREMENT for table `mensaje`
 --
 ALTER TABLE `mensaje`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `perfilusuario`
@@ -283,7 +287,7 @@ ALTER TABLE `plataforma`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `usuarioamigo`
@@ -313,7 +317,7 @@ ALTER TABLE `juegoplataforma`
 --
 ALTER TABLE `mensaje`
   ADD CONSTRAINT `id_usuario2_mensaje` FOREIGN KEY (`id_usuario2_mensaje`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `id_usuario_mensaje` FOREIGN KEY (`id_usuario_mensaje`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `id_usuario_mensaje` FOREIGN KEY (`id_usuario_mensaje`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `perfilusuario`
@@ -333,7 +337,7 @@ ALTER TABLE `perfilusuariojuego`
 --
 ALTER TABLE `usuarioamigo`
   ADD CONSTRAINT `id_usuario2_usuarioAmigo` FOREIGN KEY (`id_usuario2_usuarioAmigo`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `id_usuario_usuarioAmigo` FOREIGN KEY (`id_usuario_usuarioAmigo`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `id_usuario_usuarioAmigo` FOREIGN KEY (`id_usuario_usuarioAmigo`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usuarioplataforma`

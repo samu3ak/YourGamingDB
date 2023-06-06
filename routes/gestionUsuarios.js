@@ -16,5 +16,6 @@ router.delete("/rejectFriend/:id", [md_auth.userLogged], gestionUsuariosControll
 
 router.put("/banUser/:id", [md_auth.userIsAdmin], gestionUsuariosController.banUser);
 router.put("/unbanUser/:id", [md_auth.userIsAdmin], gestionUsuariosController.unbanUser);
+router.delete("/deleteUser/:id", [md_auth.userIsAdmin], gestionUsuariosController.deleteUser);
 
 module.exports = router;

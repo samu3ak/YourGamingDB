@@ -31,20 +31,22 @@
                     </thead>
                     <tbody>
                       <% var i=0; %>
-                        <% mensajesUsuario.forEach(mensaje=> { %>
-                          <tr class="table-light border border-2 border-info">
-                            <th scope="row">
-                              <%=mensaje.fecha%>
-                            </th>
-                            <td>
-                              <%=mensaje.texto%>
-                            </td>
-                            <td>
-                              <%=nombreDestinatario[i]%>
-                            </td>
-                          </tr>
-                          <% i+=1 %>
-                            <% }) %>
+                        <% if (mensajesUsuario !==undefined) { %>
+                          <% mensajesUsuario.forEach(mensaje=> { %>
+                            <tr class="table-light border border-2 border-info">
+                              <th scope="row">
+                                <%=mensaje.fecha%>
+                              </th>
+                              <td>
+                                <%=mensaje.texto%>
+                              </td>
+                              <td>
+                                <%=nombreDestinatario[i]%>
+                              </td>
+                            </tr>
+                            <% i+=1 %>
+                              <% }) %>
+                                <% }%>
                     </tbody>
                   </table>
                 </div>
@@ -57,9 +59,38 @@
                     <button class="btn btn-info p-3 text-dark fw-bold me-3 unbanButton"
                       data-id="<%=usuarioGestionar.id_usuario%>">Habilitar chat de texto</button>
                     <%}%>
-                      <button class="btn btn-danger p-3 text-dark fw-bold ms-3 deleteUserButton"
-                        data-id="<%=usuarioGestionar.id_usuario%>">Eliminar
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-danger p-3 text-dark fw-bold ms-3" data-bs-toggle="modal"
+                        data-bs-target="#mpConfirmar">Eliminar
                         usuario</button>
+                      <!-- Modal -->
+                      <div class="modal fade" id="mpConfirmar" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">¿Está seguro de que desea continuar?
+                              </h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                              <p class="fw-bold text-danger">Esta acción díficilmente podrá ser revertida y todas las
+                                referencias y mensajes de
+                                dicho usuario se eliminarán permanentemente</p>
+                              <p class="fw-bold">Introduzca "CONFIRMAR" y clickee en "Si" para proceder con la
+                                operación:</p>
+                              <input type="text" class="form-control confirmInput"
+                                placeholder="Introduce CONFIRMAR para continuar">
+                              </br>
+                              <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-danger p-3 deleteUserButton"
+                                  data-id="<%=usuarioGestionar.id_usuario%>" disabled>Si</button>
+                                <button type="button" class="btn btn-warning p-3" data-bs-dismiss="modal">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
               </div>
         </div>
     </main>
@@ -84,6 +115,25 @@
           fetch(`/gestionUsuarios/unbanUser/${idUsuario}`, { method: "PUT" })
             .then((res) => {
               window.location.reload();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+        $(".confirmInput").on("input", function (e) {
+          e.preventDefault();
+          if ($(this).val() === "CONFIRMAR") {
+            $(".deleteUserButton").removeAttr("disabled");
+          } else {
+            $(".deleteUserButton").attr("disabled", "true");
+          }
+        });
+        $(".deleteUserButton").click(function (e) {
+          e.preventDefault();
+          const idUsuario = $(this).data("id");
+          fetch(`/gestionUsuarios/deleteUser/${idUsuario}`, { method: "DELETE" })
+            .then((res) => {
+              window.location.replace("/gestionUsuarios");
             })
             .catch((error) => {
               console.log(error);
