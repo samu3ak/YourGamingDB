@@ -37,8 +37,21 @@ async function userExists(req, res, next) {
                 req.params.username],
             type: sequelize.QueryTypes.SELECT
         });
-    console.log(usuario);
     if (usuario[0] === undefined) {
+        return res.redirect(`/`);
+    }
+    next();
+}
+
+async function userNotBanned(req, res, next) {
+    const usuario = await sequelize.query("SELECT baneado FROM usuario WHERE id_usuario = ?",
+        {
+            replacements: [
+                req.session.usuario.id_usuario],
+            type: sequelize.QueryTypes.SELECT
+        });
+        console.log(usuario[0])
+    if (usuario[0].baneado === "SI") {
         return res.redirect(`/`);
     }
     next();
@@ -48,5 +61,6 @@ module.exports = {
     userLogged,
     userIsAdmin,
     userIsFriend,
-    userExists
+    userExists,
+    userNotBanned
 };

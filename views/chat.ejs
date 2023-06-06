@@ -12,7 +12,8 @@
           <div class="col-12">
             <h1 class="text-white text-center">Chat con <%=locals.usuarioChat.nombreUsuario%>
             </h1>
-            <div class="row p-5 mt-5 bg-info rounded-top border-top border-start border-end border-3 chatBox text-dark fw-bold">
+            <div
+              class="row p-5 mt-5 bg-info rounded-top border-top border-start border-end border-3 chatBox text-dark fw-bold">
               <% if (locals.mensajes) { %>
                 <% mensajes.forEach(mensaje=> { %>
                   <div class="row message <% if (mensaje.id_usuario_mensaje === usuario.id_usuario) { %>
@@ -48,11 +49,25 @@
                     <button class="btn btn-primary w-100 bajar">Ir al último mensaje</button>
                   </div>
                   <div class="col-10">
-                    <textarea class="form-control" placeholder="Introduce aquí tu mensaje..." rows="3"
-                      name="texto"></textarea>
+                    <% if (usuarioChat.baneado==="NO" && usuario.baneado==="NO" ) { %>
+                      <textarea class="form-control" placeholder="Introduce aquí tu mensaje..." rows="3"
+                        name="texto"></textarea>
+                      <% }else{ %>
+                        <% if (usuario.baneado==="SI" ) { %>
+                          <textarea class="form-control fw-bold" disabled rows="3"
+                            name="texto">Usted a sido baneado indefinidamente del chat de texto</textarea>
+                          <% }else{ %>
+                            <textarea class="form-control fw-bold" disabled rows="3"
+                              name="texto">Este usuario ha sido baneado indefinidamente del chat de texto</textarea>
+                            <%}%>
+                              <%}%>
                   </div>
                   <div class="col-2">
-                    <button class="btn btn-success float-start w-100" type="submit">Enviar mensaje</button>
+                    <button class="btn btn-success float-start w-100" type="submit" <% if (usuarioChat.baneado==="SI" ||
+                      usuario.baneado==="SI" ) { %>
+                      disabled
+                      <% } %>>Enviar mensaje
+                    </button>
                   </div>
                 </div>
               </form>
