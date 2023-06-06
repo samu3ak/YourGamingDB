@@ -1,4 +1,5 @@
 var DataTypes = require("sequelize").DataTypes;
+var _generos = require("./generos");
 var _juego = require("./juego");
 var _juegoplataforma = require("./juegoplataforma");
 var _mensaje = require("./mensaje");
@@ -10,6 +11,7 @@ var _usuarioamigo = require("./usuarioamigo");
 var _usuarioplataforma = require("./usuarioplataforma");
 
 function initModels(sequelize) {
+  var generos = _generos(sequelize, DataTypes);
   var juego = _juego(sequelize, DataTypes);
   var juegoplataforma = _juegoplataforma(sequelize, DataTypes);
   var mensaje = _mensaje(sequelize, DataTypes);
@@ -44,6 +46,7 @@ function initModels(sequelize) {
   usuario.hasMany(usuarioplataforma, { as: "usuarioplataformas", foreignKey: "id_usuario_usuarioPlataforma"});
 
   return {
+    generos,
     juego,
     juegoplataforma,
     mensaje,
