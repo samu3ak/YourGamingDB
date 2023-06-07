@@ -26,6 +26,11 @@ module.exports = function(sequelize, DataTypes) {
     enlace: {
       type: DataTypes.STRING(255),
       allowNull: false
+    },
+    imagen: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      defaultValue: "images\/default_game.png"
     }
   }, {
     sequelize,

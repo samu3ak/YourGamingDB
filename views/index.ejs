@@ -1,4 +1,5 @@
 <%- include('./template/head') %>
+  <link rel="stylesheet" href="css/index.css">
   </head>
 
   <body>
@@ -6,11 +7,56 @@
       <%- include('./template/header') %>
     </header>
     <main>
-
+      <div class="container-fluid pb-5">
+        <div class="row">
+          <div class="col-12 bg-primary pt-5 ps-5 mt-5 rounded">
+            <h1 class="text-white">Inicio</h1>
+            <div class="row gap-4 justify-content-center mt-5">
+              <% juegos.forEach(juego=> { %>
+                <div class="col-2 mt-2 p-2 pt-3 bg-info rounded border border-3 border-light caratulaJuego text-center">
+                  <img class="img-fluid text-center rounded" src="<%=juego.imagen%>" alt="Default Avatar Image"
+                    width="200px">
+                  <h3 class="text-white text-center pt-2">
+                    <%=juego.titulo%>
+                  </h3>
+                  <p class="text-white text-center">
+                    <%=juego.genero%>
+                  </p>
+                  <p class="text-white text-center">
+                    <%=juego.publisher%>
+                  </p>
+                  <% if (juego.enlace !=="" ) { %>
+                    <a href="<%=juego.enlace%>" class="btn btn-info border border-2 text-white text-center"
+                      target="_blank">Ver en Steam <img src="images/steam-icon.png" alt="Steam icon" width="30px"></a>
+                    <% } %>
+                </div>
+                <% }) %>
+            </div>
+            <div class="row mt-5">
+              <div class="col-12 pb-2 paginado">
+                <% if (locals.pagActual!==0) { %>
+                  <a href="/prevpage"
+                    class="btn btn-secondary float-start text-white me-2 text-decoration-none">Anterior</a>
+                  <% }%>
+                    <% if(locals.pagActual+1!==locals.numPaginas) { %>
+                      <a href="/nextpage"
+                        class="btn btn-secondary float-start text-white text-decoration-none">Siguiente</a>
+                      <% } %>
+                        <a href="/" class="btn btn-info float-start text-white text-decoration-none ms-5">Ir al
+                          principio</a>
+                        <a href="/toend" class="btn btn-info float-start text-white text-decoration-none ms-2">Ir al
+                          final</a>
+                        <p class="text-white float-end pe-3">Página <%=locals.pagActual+1%> de <%=locals.numPaginas%> (
+                              <%=locals.numResultados%> resultados)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <%- include('./template/footer') %>
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="js/bootstrap.min.js"></script>
+      <!-- Bootstrap JavaScript Libraries -->
+      <script src="js/bootstrap.min.js"></script>
   </body>
 
   </html>

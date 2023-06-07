@@ -1,0 +1,16 @@
+.caratulaJuego:hover {
+    cursor: pointer;
+}
+
+.caratulaJuego {
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+.paginado {
+    font-size: 24px;
+}
+
+.paginado a {
+    font-size: 18px;
+}
