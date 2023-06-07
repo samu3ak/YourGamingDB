@@ -34,20 +34,20 @@
             </div>
             <div class="row mt-5">
               <div class="col-12 pb-2 paginado">
+                <% if(locals.pagActual+1!==locals.numPaginas) { %>
+                  <a href="/nextpage"
+                    class="btn btn-secondary float-end text-white text-decoration-none">Siguiente</a>
+                  <% } %>
                 <% if (locals.pagActual!==0) { %>
                   <a href="/prevpage"
-                    class="btn btn-secondary float-start text-white me-2 text-decoration-none">Anterior</a>
+                    class="btn btn-secondary float-end text-white me-2 text-decoration-none">Anterior</a>
                   <% }%>
-                    <% if(locals.pagActual+1!==locals.numPaginas) { %>
-                      <a href="/nextpage"
-                        class="btn btn-secondary float-start text-white text-decoration-none">Siguiente</a>
-                      <% } %>
-                        <a href="/" class="btn btn-info float-start text-white text-decoration-none ms-5">Ir al
-                          principio</a>
-                        <a href="/toend" class="btn btn-info float-start text-white text-decoration-none ms-2">Ir al
-                          final</a>
-                        <p class="text-white float-end pe-3">Página <%=locals.pagActual+1%> de <%=locals.numPaginas%> (
+                        <p class="text-white float-start pe-3">Página <%=locals.pagActual+1%> de <%=locals.numPaginas%> (
                               <%=locals.numResultados%> resultados)</p>
+                              <a href="/" class="btn btn-warning float-start text-black text-decoration-none ms-2">Ir al
+                                principio</a>
+                              <a href="/toend" class="btn btn-warning float-start text-black text-decoration-none ms-2">Ir al
+                                final</a>
               </div>
             </div>
           </div>
