@@ -7,12 +7,18 @@ const params = {
 };
 
 exports.index = async (req, res) => {
-    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego", { type: sequelize.QueryTypes.SELECT });
+    const busqueda = req.query.titulo ? req.query.titulo : "";
+    if(busqueda!=""){
+        req.session.busquedaJuego = busqueda;
+    }else{
+        req.session.busquedaJuego = undefined;
+    }
+    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego WHERE LOWER(titulo) LIKE ?", { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
     numResultados = numResultados[0].numero;
     req.session.numPaginas = ((numResultados / 10) >> 0)+1;
     req.session.pagActual = 0;
 
-    let juegos = await sequelize.query(`SELECT * FROM juego ORDER BY titulo ASC LIMIT 10 OFFSET ${req.session.pagActual}`, { type: sequelize.QueryTypes.SELECT });
+    let juegos = await sequelize.query(`SELECT * FROM juego WHERE LOWER(titulo) LIKE ? ORDER BY titulo ASC LIMIT 10 OFFSET ${req.session.pagActual}`, { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
 
     res.render("index", {
         title: params.title, usuario: req.session.usuario, numPaginas: req.session.numPaginas,
@@ -21,7 +27,8 @@ exports.index = async (req, res) => {
 };
 
 exports.nextPage = async (req, res) => {
-    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego", { type: sequelize.QueryTypes.SELECT });
+    const busqueda = req.session.busquedaJuego ? req.session.busquedaJuego : "";
+    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego WHERE lower(titulo) LIKE ?", { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
     numResultados = numResultados[0].numero;
     req.session.numPaginas = ((numResultados / 10) >> 0)+1;
     if ((req.session.pagActual + 1) < req.session.numPaginas) {
@@ -33,7 +40,7 @@ exports.nextPage = async (req, res) => {
         offset = 0;
     }
 
-    let juegos = await sequelize.query(`SELECT * FROM juego ORDER BY titulo ASC LIMIT 10 OFFSET ${offset}`, { type: sequelize.QueryTypes.SELECT });
+    let juegos = await sequelize.query(`SELECT * FROM juego WHERE lower(titulo) LIKE ? ORDER BY titulo ASC LIMIT 10 OFFSET ${offset}`, { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
 
     res.render("index", {
         title: params.title, usuario: req.session.usuario, numPaginas: req.session.numPaginas,
@@ -42,7 +49,8 @@ exports.nextPage = async (req, res) => {
 }
 
 exports.prevPage = async (req, res) => {
-    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego", { type: sequelize.QueryTypes.SELECT });
+    const busqueda = req.session.busquedaJuego ? req.session.busquedaJuego : "";
+    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego WHERE lower(titulo) LIKE ?", { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
     numResultados = numResultados[0].numero;
     req.session.numPaginas = ((numResultados / 10) >> 0)+1;
     if ((req.session.pagActual + 1) > 1) {
@@ -54,7 +62,7 @@ exports.prevPage = async (req, res) => {
         offset = 0;
     }
 
-    let juegos = await sequelize.query(`SELECT * FROM juego ORDER BY titulo ASC LIMIT 10 OFFSET ${offset}`, { type: sequelize.QueryTypes.SELECT });
+    let juegos = await sequelize.query(`SELECT * FROM juego WHERE lower(titulo) LIKE ? ORDER BY titulo ASC LIMIT 10 OFFSET ${offset}`, { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
 
     res.render("index", {
         title: params.title, usuario: req.session.usuario, numPaginas: req.session.numPaginas,
@@ -63,7 +71,8 @@ exports.prevPage = async (req, res) => {
 }
 
 exports.toEnd = async (req, res) => {
-    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego", { type: sequelize.QueryTypes.SELECT });
+    const busqueda = req.session.busquedaJuego ? req.session.busquedaJuego : "";
+    let numResultados = await sequelize.query("SELECT COUNT(*) as numero FROM juego WHERE lower(titulo) LIKE ?", { replacements: [`%${busqueda.toLowerCase()}%`], type: sequelize.QueryTypes.SELECT });
     numResultados = numResultados[0].numero;
     req.session.numPaginas = (numResultados / 10) >> 0;
     req.session.pagActual = req.session.numPaginas;
