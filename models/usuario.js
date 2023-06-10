@@ -27,6 +27,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('SI','NO'),
       allowNull: false,
       defaultValue: "NO"
+    },
+    descripcion: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      defaultValue: "Nada que mostrar aquí..."
     }
   }, {
     sequelize,

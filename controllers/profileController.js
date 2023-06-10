@@ -7,8 +7,9 @@ const params = {
     title: "YGDB - Perfil de "
 };
 
-exports.profile = (req, res) => {
-    res.render("profile", { title: params.title + `${req.session.usuario.nombreUsuario}`, usuario: req.session.usuario, usuarioPerfil: req.session.usuario });
+exports.profile = async (req, res) => {
+    const numSeguidores = await friendManager.numberOfFriends(req.session.usuario.id_usuario);
+    res.render("profile", { title: params.title + `${req.session.usuario.nombreUsuario}`, usuario: req.session.usuario, numSeguidores: numSeguidores, usuarioPerfil: req.session.usuario });
 };
 
 exports.profileUser = async (req, res) => {
@@ -18,15 +19,16 @@ exports.profileUser = async (req, res) => {
 
     let usuario = await sequelize.query("SELECT * FROM usuario WHERE nombreUsuario = ?", { replacements: [username], type: sequelize.QueryTypes.SELECT });
     usuario = usuario[0];
+    const numSeguidores = await friendManager.numberOfFriends(usuario.id_usuario);
 
     if (usuarioLogueado !== null && usuarioLogueado.nombreUsuario === usuario.nombreUsuario) {
-        res.render("profile", { title: params.title + `${usuarioLogueado.nombreUsuario}`, usuario: usuarioLogueado });
+        res.render("profile", { title: params.title + `${usuarioLogueado.nombreUsuario}`, usuario: usuarioLogueado, numSeguidores: numSeguidores });
     } else {
         if (usuarioLogueado) {
             estadoAmistad = await friendManager.getEstado(usuarioLogueado.id_usuario, usuario.id_usuario);
         }
         if (usuario) {
-            res.render("profileUser", { title: params.title + `${username}`, usuarioPerfil: usuario, usuario: usuarioLogueado, estadoAmistad: estadoAmistad });
+            res.render("profileUser", { title: params.title + `${username}`, usuarioPerfil: usuario, usuario: usuarioLogueado, numSeguidores: numSeguidores, estadoAmistad: estadoAmistad });
         } else {
             res.render("error");
         }

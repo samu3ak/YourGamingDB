@@ -118,6 +118,15 @@ async function sendMessage(userId, userFriendId, msg) {
     return query;
 }
 
+async function numberOfFriends(userId) {
+    const query = await sequelize.query("SELECT COUNT(*) as numSeguidores FROM usuarioamigo WHERE estado = 'amigo' AND (id_usuario_usuarioAmigo = ? OR id_usuario2_usuarioAmigo = ?)",
+        {
+            replacements: [userId,userId],
+            type: sequelize.QueryTypes.SELECT
+        });
+    return query[0].numSeguidores;
+}
+
 module.exports = {
     isFriend,
     addFriend,
@@ -127,5 +136,6 @@ module.exports = {
     getFriends,
     loadMessages,
     sendMessage,
-    getMessages
+    getMessages,
+    numberOfFriends
 };

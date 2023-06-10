@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 07, 2023 at 06:20 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-06-2023 a las 15:03:40
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `yourgamingdb`
+-- Base de datos: `yourgamingdb`
 --
 CREATE DATABASE yourgamingdb;
 USE yourgamingdb;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `generos`
+-- Estructura de tabla para la tabla `generos`
 --
 
 CREATE TABLE `generos` (
   `id_generos` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `generos`
+-- Volcado de datos para la tabla `generos`
 --
 
 INSERT INTO `generos` (`id_generos`, `nombre`) VALUES
@@ -66,7 +66,7 @@ INSERT INTO `generos` (`id_generos`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `juego`
+-- Estructura de tabla para la tabla `juego`
 --
 
 CREATE TABLE `juego` (
@@ -77,10 +77,10 @@ CREATE TABLE `juego` (
   `publisher` varchar(255) NOT NULL,
   `enlace` varchar(255) NOT NULL,
   `imagen` varchar(255) DEFAULT 'images/default_game.png'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `juego`
+-- Volcado de datos para la tabla `juego`
 --
 
 INSERT INTO `juego` (`id_juego`, `titulo`, `descripcion`, `genero`, `publisher`, `enlace`, `imagen`) VALUES
@@ -667,19 +667,19 @@ INSERT INTO `juego` (`id_juego`, `titulo`, `descripcion`, `genero`, `publisher`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `juegoplataforma`
+-- Estructura de tabla para la tabla `juegoplataforma`
 --
 
 CREATE TABLE `juegoplataforma` (
   `id_juegoPlataforma` int(11) NOT NULL,
   `id_juego_juegoPlataforma` int(11) NOT NULL,
   `id_plataforma_juegoPlataforma` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mensaje`
+-- Estructura de tabla para la tabla `mensaje`
 --
 
 CREATE TABLE `mensaje` (
@@ -688,10 +688,10 @@ CREATE TABLE `mensaje` (
   `id_usuario2_mensaje` int(11) NOT NULL,
   `texto` longtext NOT NULL,
   `fecha` date NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `mensaje`
+-- Volcado de datos para la tabla `mensaje`
 --
 
 INSERT INTO `mensaje` (`id_mensaje`, `id_usuario_mensaje`, `id_usuario2_mensaje`, `texto`, `fecha`) VALUES
@@ -707,46 +707,19 @@ INSERT INTO `mensaje` (`id_mensaje`, `id_usuario_mensaje`, `id_usuario2_mensaje`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `perfilusuario`
---
-
-CREATE TABLE `perfilusuario` (
-  `id_perfilUsuario` int(11) NOT NULL,
-  `id_usuario_perfilUsuario` int(11) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `perfilusuariojuego`
---
-
-CREATE TABLE `perfilusuariojuego` (
-  `id_perfilUsuarioJuego` int(11) NOT NULL,
-  `id_usuario_perfilUsuarioJuego` int(11) NOT NULL,
-  `id_juego_perfilUsuarioJuego` int(11) NOT NULL,
-  `estado` enum('Pendiente','Jugando','Completado','Abandonado') DEFAULT NULL,
-  `calificacion` int(10) DEFAULT NULL,
-  `opinion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `plataforma`
+-- Estructura de tabla para la tabla `plataforma`
 --
 
 CREATE TABLE `plataforma` (
   `id_plataforma` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -755,22 +728,23 @@ CREATE TABLE `usuario` (
   `password` varchar(255) NOT NULL,
   `correo` varchar(120) NOT NULL,
   `rol` enum('usuario','administrador') DEFAULT NULL,
-  `baneado` enum('SI','NO') NOT NULL DEFAULT 'NO'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `baneado` enum('SI','NO') NOT NULL DEFAULT 'NO',
+  `descripcion` varchar(255) NOT NULL DEFAULT 'Nada que mostrar aquí...'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`, `baneado`) VALUES
-(18, 'samu3ak', '$2a$10$FQfN4C4Vg/eXxMRfXlnjwuxlx1HTu3uPE3Tp1hmiKeh5GHGLe/jMq', 'samuelbolivar2003@gmail.com', 'usuario', 'NO'),
-(19, 'admin', '$2a$10$Y/FsTwcM2wNGJV6qlBGOO.m4T0sWxkFeZcI21d6KUfrPTHvI0tiL.', 'admin@gmail.com', 'administrador', 'NO'),
-(23, 'samu3ak2', '$2a$10$sZHZSMn4ABFoakr3pciNP.nU0T0mYvgJp774fdudlVWcUDGMyePI6', 'samuelbolivar2004@gmail.com', 'usuario', 'NO');
+INSERT INTO `usuario` (`id_usuario`, `nombreUsuario`, `password`, `correo`, `rol`, `baneado`, `descripcion`) VALUES
+(18, 'samu3ak', '$2a$10$FQfN4C4Vg/eXxMRfXlnjwuxlx1HTu3uPE3Tp1hmiKeh5GHGLe/jMq', 'samuelbolivar2003@gmail.com', 'usuario', 'NO', 'Nada que mostrar aquí...'),
+(19, 'admin', '$2a$10$Y/FsTwcM2wNGJV6qlBGOO.m4T0sWxkFeZcI21d6KUfrPTHvI0tiL.', 'admin@gmail.com', 'administrador', 'NO', 'Nada que mostrar aquí...'),
+(23, 'samu3ak2', '$2a$10$sZHZSMn4ABFoakr3pciNP.nU0T0mYvgJp774fdudlVWcUDGMyePI6', 'samuelbolivar2004@gmail.com', 'usuario', 'NO', 'Nada que mostrar aquí...');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarioamigo`
+-- Estructura de tabla para la tabla `usuarioamigo`
 --
 
 CREATE TABLE `usuarioamigo` (
@@ -778,10 +752,10 @@ CREATE TABLE `usuarioamigo` (
   `id_usuario_usuarioAmigo` int(11) NOT NULL,
   `id_usuario2_usuarioAmigo` int(11) NOT NULL,
   `estado` enum('pendiente','amigo') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuarioamigo`
+-- Volcado de datos para la tabla `usuarioamigo`
 --
 
 INSERT INTO `usuarioamigo` (`id_usuarioAmigo`, `id_usuario_usuarioAmigo`, `id_usuario2_usuarioAmigo`, `estado`) VALUES
@@ -790,34 +764,49 @@ INSERT INTO `usuarioamigo` (`id_usuarioAmigo`, `id_usuario_usuarioAmigo`, `id_us
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarioplataforma`
+-- Estructura de tabla para la tabla `usuariojuego`
+--
+
+CREATE TABLE `usuariojuego` (
+  `id_usuarioJuego` int(11) NOT NULL,
+  `id_usuario_usuarioJuego` int(11) NOT NULL,
+  `id_juego_usuarioJuego` int(11) NOT NULL,
+  `estado` enum('Pendiente','Jugando','Completado','Abandonado') DEFAULT NULL,
+  `calificacion` int(10) DEFAULT NULL,
+  `opinion` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarioplataforma`
 --
 
 CREATE TABLE `usuarioplataforma` (
   `id_usuarioPlataforma` int(11) NOT NULL,
   `id_usuario_usuarioPlataforma` int(11) NOT NULL,
   `id_plataforma_usuarioPlataforma` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `generos`
+-- Indices de la tabla `generos`
 --
 ALTER TABLE `generos`
   ADD PRIMARY KEY (`id_generos`),
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
--- Indexes for table `juego`
+-- Indices de la tabla `juego`
 --
 ALTER TABLE `juego`
   ADD PRIMARY KEY (`id_juego`);
 
 --
--- Indexes for table `juegoplataforma`
+-- Indices de la tabla `juegoplataforma`
 --
 ALTER TABLE `juegoplataforma`
   ADD PRIMARY KEY (`id_juegoPlataforma`),
@@ -825,7 +814,7 @@ ALTER TABLE `juegoplataforma`
   ADD KEY `id_plataforma_juegoPlataforma` (`id_plataforma_juegoPlataforma`);
 
 --
--- Indexes for table `mensaje`
+-- Indices de la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
   ADD PRIMARY KEY (`id_mensaje`),
@@ -833,34 +822,19 @@ ALTER TABLE `mensaje`
   ADD KEY `id_usuario2_mensaje` (`id_usuario2_mensaje`);
 
 --
--- Indexes for table `perfilusuario`
---
-ALTER TABLE `perfilusuario`
-  ADD PRIMARY KEY (`id_perfilUsuario`),
-  ADD KEY `id_usuario_perfilUsuario` (`id_usuario_perfilUsuario`);
-
---
--- Indexes for table `perfilusuariojuego`
---
-ALTER TABLE `perfilusuariojuego`
-  ADD PRIMARY KEY (`id_perfilUsuarioJuego`),
-  ADD KEY `id_usuario_perfilUsuarioJuego` (`id_usuario_perfilUsuarioJuego`),
-  ADD KEY `id_juego_perfilUsuarioJuego` (`id_juego_perfilUsuarioJuego`);
-
---
--- Indexes for table `plataforma`
+-- Indices de la tabla `plataforma`
 --
 ALTER TABLE `plataforma`
   ADD PRIMARY KEY (`id_plataforma`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- Indexes for table `usuarioamigo`
+-- Indices de la tabla `usuarioamigo`
 --
 ALTER TABLE `usuarioamigo`
   ADD PRIMARY KEY (`id_usuarioAmigo`),
@@ -868,7 +842,15 @@ ALTER TABLE `usuarioamigo`
   ADD KEY `id_usuario2_usuarioAmigo` (`id_usuario2_usuarioAmigo`);
 
 --
--- Indexes for table `usuarioplataforma`
+-- Indices de la tabla `usuariojuego`
+--
+ALTER TABLE `usuariojuego`
+  ADD PRIMARY KEY (`id_usuarioJuego`),
+  ADD KEY `id_usuario_perfilUsuarioJuego` (`id_usuario_usuarioJuego`),
+  ADD KEY `id_juego_perfilUsuarioJuego` (`id_juego_usuarioJuego`);
+
+--
+-- Indices de la tabla `usuarioplataforma`
 --
 ALTER TABLE `usuarioplataforma`
   ADD PRIMARY KEY (`id_usuarioPlataforma`),
@@ -876,109 +858,97 @@ ALTER TABLE `usuarioplataforma`
   ADD KEY `id_plataforma_usuarioPlataforma` (`id_plataforma_usuarioPlataforma`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `generos`
+-- AUTO_INCREMENT de la tabla `generos`
 --
 ALTER TABLE `generos`
   MODIFY `id_generos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `juego`
+-- AUTO_INCREMENT de la tabla `juego`
 --
 ALTER TABLE `juego`
   MODIFY `id_juego` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=581;
 
 --
--- AUTO_INCREMENT for table `juegoplataforma`
+-- AUTO_INCREMENT de la tabla `juegoplataforma`
 --
 ALTER TABLE `juegoplataforma`
   MODIFY `id_juegoPlataforma` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `mensaje`
+-- AUTO_INCREMENT de la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
   MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT for table `perfilusuario`
---
-ALTER TABLE `perfilusuario`
-  MODIFY `id_perfilUsuario` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `perfilusuariojuego`
---
-ALTER TABLE `perfilusuariojuego`
-  MODIFY `id_perfilUsuarioJuego` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `plataforma`
+-- AUTO_INCREMENT de la tabla `plataforma`
 --
 ALTER TABLE `plataforma`
   MODIFY `id_plataforma` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `usuarioamigo`
+-- AUTO_INCREMENT de la tabla `usuarioamigo`
 --
 ALTER TABLE `usuarioamigo`
   MODIFY `id_usuarioAmigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `usuarioplataforma`
+-- AUTO_INCREMENT de la tabla `usuariojuego`
+--
+ALTER TABLE `usuariojuego`
+  MODIFY `id_usuarioJuego` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarioplataforma`
 --
 ALTER TABLE `usuarioplataforma`
   MODIFY `id_usuarioPlataforma` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `juegoplataforma`
+-- Filtros para la tabla `juegoplataforma`
 --
 ALTER TABLE `juegoplataforma`
   ADD CONSTRAINT `id_juego_juegoPlataforma` FOREIGN KEY (`id_juego_juegoPlataforma`) REFERENCES `juego` (`id_juego`),
   ADD CONSTRAINT `id_plataforma_juegoPlataforma` FOREIGN KEY (`id_plataforma_juegoPlataforma`) REFERENCES `plataforma` (`id_plataforma`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `mensaje`
+-- Filtros para la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
   ADD CONSTRAINT `id_usuario2_mensaje` FOREIGN KEY (`id_usuario2_mensaje`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `id_usuario_mensaje` FOREIGN KEY (`id_usuario_mensaje`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `perfilusuario`
---
-ALTER TABLE `perfilusuario`
-  ADD CONSTRAINT `id_usuario_perfilUsuario` FOREIGN KEY (`id_usuario_perfilUsuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `perfilusuariojuego`
---
-ALTER TABLE `perfilusuariojuego`
-  ADD CONSTRAINT `id_juego_perfilUsuarioJuego` FOREIGN KEY (`id_juego_perfilUsuarioJuego`) REFERENCES `juego` (`id_juego`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `id_usuario_perfilUsuarioJuego` FOREIGN KEY (`id_usuario_perfilUsuarioJuego`) REFERENCES `usuario` (`id_usuario`);
-
---
--- Constraints for table `usuarioamigo`
+-- Filtros para la tabla `usuarioamigo`
 --
 ALTER TABLE `usuarioamigo`
   ADD CONSTRAINT `id_usuario2_usuarioAmigo` FOREIGN KEY (`id_usuario2_usuarioAmigo`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `id_usuario_usuarioAmigo` FOREIGN KEY (`id_usuario_usuarioAmigo`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuarioplataforma`
+-- Filtros para la tabla `usuariojuego`
+--
+ALTER TABLE `usuariojuego`
+  ADD CONSTRAINT `id_juego_perfilUsuarioJuego` FOREIGN KEY (`id_juego_usuarioJuego`) REFERENCES `juego` (`id_juego`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_usuario_perfilUsuarioJuego` FOREIGN KEY (`id_usuario_usuarioJuego`) REFERENCES `usuario` (`id_usuario`);
+
+--
+-- Filtros para la tabla `usuarioplataforma`
 --
 ALTER TABLE `usuarioplataforma`
   ADD CONSTRAINT `id_plataforma_usuarioPlataforma` FOREIGN KEY (`id_plataforma_usuarioPlataforma`) REFERENCES `plataforma` (`id_plataforma`) ON DELETE CASCADE ON UPDATE CASCADE,
