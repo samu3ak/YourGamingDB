@@ -22,7 +22,7 @@
             </form>
             <div class="row gap-4 justify-content-center mt-5">
               <% juegos.forEach(juego=> { %>
-                <div class="col-2 mt-2 p-2 pt-3 bg-info rounded border border-3 border-light caratulaJuego text-center">
+                <div class="col-2 mt-2 p-2 pt-3 bg-info rounded border border-3 border-light caratulaJuego text-center" data-id="<%=juego.id_juego%>">
                   <img class="img-fluid text-center rounded" src="<%=juego.imagen%>" alt="Default Avatar Image"
                     width="200px">
                   <h3 class="text-white text-center pt-2">
@@ -66,6 +66,13 @@
     <%- include('./template/footer') %>
       <!-- Bootstrap JavaScript Libraries -->
       <script src="js/bootstrap.min.js"></script>
+      <script>
+        $(".caratulaJuego").click(function (e) { 
+          e.preventDefault();
+          const idJuego = $(this).data("id");
+          window.location.href = `/${idJuego}`;
+        });
+      </script>
   </body>
 
   </html>

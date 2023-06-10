@@ -1,0 +1,35 @@
+<%- include('./template/head') %>
+  </head>
+
+  <body>
+    <header>
+      <%- include('./template/header') %>
+    </header>
+    <main>
+      <div class="container-fluid p-5">
+        <div class="row justify-content-center bg-primary p-5 border border-4 border-info rounded">
+          <div class="col-2 text-center">
+            <h1 class="text-white mb-4 text-center">
+              <%=locals.juego.titulo%>
+            </h1>
+            <img class="dropdown-toggle" src="<%=locals.juego.imagen%>" alt="Game Image"
+              width="200px">
+          </div>
+          <div class="col-3 text-white text-center">
+            <h3 class="text-white mb-4">Descripción</h1>
+              <p><%=locals.juego.descripcion%></p>
+          </div>
+          <div class="col-3 text-white text-center">
+            <h3 class="text-white mb-4">Información</h3>
+            <p>Géneros: <%=locals.juego.genero%></p>
+            <p>Publisher: <%=locals.juego.publisher%></p>
+            <p>Steam: <a class="text-white" target="_blank" href="<%=locals.juego.enlace%>"><%=locals.juego.enlace%></a></p>
+          </div>
+        </div>
+    </main>
+    <%- include('./template/footer') %>
+      <!-- Bootstrap JavaScript Libraries -->
+      <script src="js/bootstrap.min.js"></script>
+  </body>
+
+  </html>
