@@ -5,7 +5,6 @@ var juegoController = require("../controllers/juegoController.js");
 
 /* GET home page. */
 router.get('/', indexController.index);
-router.get('/:id', juegoController.juego);
 
 router.get("/nextpage", indexController.nextPage);
 router.get("/prevpage", indexController.prevPage);

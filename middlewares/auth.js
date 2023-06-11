@@ -5,8 +5,13 @@ const friendManager = require("../services/friendManager");
 
 function userLogged(req, res, next) {
     const usuarioLogueado = req.session.usuario ? req.session.usuario : null;
+    console.log(req.method);
     if (usuarioLogueado === null) {
-        return res.status(404).render("login", { title: "YGDB - Login" });
+        if (req.method !== "PUT") {
+            return res.status(404).render("login", { title: "YGDB - Login" });
+        } else {
+            return res.status(404).json({ error: "Error 404" });
+        }
     }
     next();
 }
@@ -50,7 +55,7 @@ async function userNotBanned(req, res, next) {
                 req.session.usuario.id_usuario],
             type: sequelize.QueryTypes.SELECT
         });
-        console.log(usuario[0])
+    console.log(usuario[0])
     if (usuario[0].baneado === "SI") {
         return res.redirect(`/`);
     }

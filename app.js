@@ -28,6 +28,7 @@ var profileRouter = require('./routes/profile');
 var gestionUsuariosRouter = require('./routes/gestionUsuarios');
 var explorarUsuariosRouter = require("./routes/explorarUsuarios");
 var chatRouter = require("./routes/chat");
+var juegoRouter = require("./routes/juego");
 const { profile } = require('console');
 
 var app = express();
@@ -66,6 +67,7 @@ app.use('/profile', profileRouter);
 app.use('/gestionUsuarios', gestionUsuariosRouter);
 app.use('/explorarUsuarios', explorarUsuariosRouter);
 app.use('/chat', chatRouter);
+app.use('/juego', juegoRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
