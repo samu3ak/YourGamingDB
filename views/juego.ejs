@@ -1,5 +1,5 @@
 <%- include('./template/head') %>
-<link rel="stylesheet" href="css/juego.css">
+  <link rel="stylesheet" href="css/juego.css">
   </head>
 
   <body>
@@ -13,47 +13,69 @@
             <h1 class="text-white mb-4 text-center">
               <%=locals.juego.titulo%>
             </h1>
-            <img class="dropdown-toggle" src="<%=locals.juego.imagen%>" alt="Game Image"
-              width="200px">
+            <img class="dropdown-toggle" src="<%=locals.juego.imagen%>" alt="Game Image" width="200px">
           </div>
           <div class="col-3 text-white text-center">
             <h3 class="text-white mb-4">Descripción</h1>
-              <p><%=locals.juego.descripcion%></p>
+              <p>
+                <%=locals.juego.descripcion%>
+              </p>
           </div>
           <div class="col-3 text-white text-center">
             <h3 class="text-white mb-4">Información</h3>
-            <p>Géneros: <%=locals.juego.genero%></p>
-            <p>Publisher: <%=locals.juego.publisher%></p>
-            <p>Steam: <a class="text-white" target="_blank" href="<%=locals.juego.enlace%>"><%=locals.juego.enlace%></a></p>
+            <p>Géneros: <%=locals.juego.genero%>
+            </p>
+            <p>Publisher: <%=locals.juego.publisher%>
+            </p>
+            <p>Steam: <a class="text-white" target="_blank" href="<%=locals.juego.enlace%>">
+                <%=locals.juego.enlace%>
+              </a></p>
           </div>
           <div class="col-4 text-white text-center">
             <h5 class="text-white mb-4">Estado</h5>
             <div class="row mt-3 justify-content-center">
               <select class="ms-3 form-select estadoButton text-center" aria-label="Default select example"
-              data-id="<%=locals.juego.id_juego%>" name="estado">
-                <option selected>Seleccionar estado</option>
-                <option value="Pendiente">Pendiente</option>
-                <option value="Jugando">Jugando</option>
-                <option value="Completado">Completado</option>
+                data-id="<%=locals.juego.id_juego%>" name="estado">
+                <% if (estadoUsuario!==undefined) { %>
+                  <option <%if (estadoUsuario.estado==="Pendiente" ){%>selected<%}%> value="Pendiente">Pendiente
+                  </option>
+                  <option <%if (estadoUsuario.estado==="Jugando" ){%>selected<%}%> value="Jugando">Jugando</option>
+                  <option <%if (estadoUsuario.estado==="Completado" ){%>selected<%}%> value="Completado">Completado
+                  </option>
+                  <% }else{ %>
+                    <option selected>Seleccionar estado</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Jugando">Jugando</option>
+                    <option value="Completado">Completado</option>
+                    <%}%>
               </select>
             </div>
             <h5 class="text-white mb-4 mt-5">Calificación</h5>
             <div class="mt-4 row justify-content-center">
-                <select class="ms-3 form-select calificacionButton text-center" aria-label="Default select example"
+              <select class="ms-3 form-select calificacionButton text-center" aria-label="Default select example"
                 data-id="<%=locals.juego.id_juego%>" name="calificacion">
-                  <option selected>Seleccionar calificación</option>
-                  <option value="Pendiente">1★</option>
-                  <option value="Jugando">2★</option>
-                  <option value="Completado">3★</option>
-                  <option value="Completado">4★</option>
-                  <option value="Completado">5★</option>
-                </select>
+                <% if (estadoUsuario!==undefined) { %>
+                  <option <%if (estadoUsuario.calificacion===null ){%>selected<%}%>>Seleccionar calificación</option>
+                  <option <%if (estadoUsuario.calificacion===1 ){%>selected<%}%> value="1">1★</option>
+                  <option <%if (estadoUsuario.calificacion===2 ){%>selected<%}%> value="2">2★</option>
+                  <option <%if (estadoUsuario.calificacion===3 ){%>selected<%}%> value="3">3★</option>
+                  <option <%if (estadoUsuario.calificacion===4 ){%>selected<%}%> value="4">4★</option>
+                  <option <%if (estadoUsuario.calificacion===5 ){%>selected<%}%> value="5">5★</option>
+                  <% }else{ %>
+                    <option selected>Seleccionar calificación</option>
+                    <option value="1">1★</option>
+                    <option value="2">2★</option>
+                    <option value="3">3★</option>
+                    <option value="4">4★</option>
+                    <option value="5">5★</option>
+                    <%}%>
+              </select>
             </div>
             <h5 class="text-white mt-5">Opinión</h5>
             <div class="row justify-content-center">
-              <textarea class="mt-3" name="" id="" cols="10" rows="3" placeholder="Introduce aquí tu opinión..."
-              data-id="<%=locals.juego.id_juego%>"></textarea>
-              <button class="btn btn-secondary mt-2">Guardar opinión</button>
+              <textarea class="mt-3 opinionText" name="opinion" id="" cols="10" rows="3" placeholder="Introduce aquí tu opinión..."
+                data-id="<%=locals.juego.id_juego%>"><%if (estadoUsuario !== undefined && estadoUsuario.opinion!==""){%><%=estadoUsuario.opinion%><%}%></textarea>
+              <button class="btn btn-secondary mt-2 opinionButton" data-id="<%=locals.juego.id_juego%>">Guardar opinión</button>
             </div>
           </div>
         </div>

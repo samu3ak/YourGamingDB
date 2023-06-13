@@ -1,6 +1,7 @@
 const { QueryTypes } = require("sequelize");
 const sequelize = require("../models/cargarModelos").getSequelize();
 const friendManager = require("../services/friendManager");
+const gameManager = require("../services/gameManager");
 
 // Parámetros establecidos para las opciones de renderizado de la página
 const params = {
@@ -9,7 +10,12 @@ const params = {
 
 exports.profile = async (req, res) => {
     const numSeguidores = await friendManager.numberOfFriends(req.session.usuario.id_usuario);
-    res.render("profile", { title: params.title + `${req.session.usuario.nombreUsuario}`, usuario: req.session.usuario, numSeguidores: numSeguidores, usuarioPerfil: req.session.usuario });
+    let numCompletados, numPendientes, numJugando;
+    [numCompletados, numJugando, numPendientes] = await gameManager.obtenerJugadosPendientesCompletados(req.session.usuario.id_usuario);
+    res.render("profile", {
+        title: params.title + `${req.session.usuario.nombreUsuario}`, usuario: req.session.usuario, numSeguidores: numSeguidores, usuarioPerfil: req.session.usuario,
+        numCompletados: numCompletados, numPendientes: numPendientes, numJugando: numJugando
+    });
 };
 
 exports.profileUser = async (req, res) => {
