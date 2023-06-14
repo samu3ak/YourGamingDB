@@ -10,11 +10,14 @@ const params = {
 
 exports.profile = async (req, res) => {
     const numSeguidores = await friendManager.numberOfFriends(req.session.usuario.id_usuario);
-    let numCompletados, numPendientes, numJugando;
-    [numCompletados, numJugando, numPendientes] = await gameManager.obtenerJugadosPendientesCompletados(req.session.usuario.id_usuario);
+    let numCompletados, numJugando, numPendientes;
+    let completados, jugando, pendientes;
+
+    [numCompletados, numJugando, numPendientes] = await gameManager.obtenerNumJugadosPendientesCompletados(req.session.usuario.id_usuario);
+    [completados, jugando, pendientes] = await gameManager.obtenerJugadosPendientesCompletados(req.session.usuario.id_usuario);
     res.render("profile", {
         title: params.title + `${req.session.usuario.nombreUsuario}`, usuario: req.session.usuario, numSeguidores: numSeguidores, usuarioPerfil: req.session.usuario,
-        numCompletados: numCompletados, numPendientes: numPendientes, numJugando: numJugando
+        numCompletados: numCompletados, numPendientes: numPendientes, numJugando: numJugando, completados: completados, pendientes: pendientes, jugando: jugando
     });
 };
 
@@ -28,13 +31,17 @@ exports.profileUser = async (req, res) => {
     const numSeguidores = await friendManager.numberOfFriends(usuario.id_usuario);
 
     if (usuarioLogueado !== null && usuarioLogueado.nombreUsuario === usuario.nombreUsuario) {
-        res.render("profile", { title: params.title + `${usuarioLogueado.nombreUsuario}`, usuario: usuarioLogueado, numSeguidores: numSeguidores });
+        res.redirect("/profile");
     } else {
         if (usuarioLogueado) {
             estadoAmistad = await friendManager.getEstado(usuarioLogueado.id_usuario, usuario.id_usuario);
         }
         if (usuario) {
-            res.render("profileUser", { title: params.title + `${username}`, usuarioPerfil: usuario, usuario: usuarioLogueado, numSeguidores: numSeguidores, estadoAmistad: estadoAmistad });
+            let numCompletados, numPendientes, numJugando;
+            let completados, jugando, pendientes;
+            [numCompletados, numJugando, numPendientes] = await gameManager.obtenerNumJugadosPendientesCompletados(usuario.id_usuario);
+            [completados, jugando, pendientes] = await gameManager.obtenerJugadosPendientesCompletados(usuario.id_usuario);
+            res.render("profileUser", { title: params.title + `${username}`, usuarioPerfil: usuario, usuario: usuarioLogueado, numSeguidores: numSeguidores, estadoAmistad: estadoAmistad, numCompletados: numCompletados, numPendientes: numPendientes, numJugando: numJugando, completados: completados, pendientes: pendientes, jugando: jugando });
         } else {
             res.render("error");
         }

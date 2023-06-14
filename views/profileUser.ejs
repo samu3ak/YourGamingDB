@@ -1,4 +1,5 @@
 <%- include('./template/head') %>
+  <link rel="stylesheet" href="css/profile.css">
   </head>
 
   <body>
@@ -59,17 +60,108 @@
           </div>
           <div class="col-3 text-white text-center">
             <h3 class="text-white mb-4">Descripción</h1>
-              <p><%=usuarioPerfil.descripcion%></p>
+              <p>
+                <%=usuarioPerfil.descripcion%>
+              </p>
           </div>
           <div class="col-3 text-white text-center">
             <h3 class="text-white mb-4">Información</h3>
-            <p>Seguidores: <%=locals.numSeguidores%></p>
-            <p>Juegos jugados: 0</p>
-            <p>Juegos completados: 0</p>
+            <p>Seguidores: <%=locals.numSeguidores%>
+            </p>
+            <p>Juegos completados: <%=locals.numCompletados%>
+            </p>
+            <p>Jugando actualmente: <%=locals.numJugando%>
+            </p>
+            <p>Juegos pendientes: <%=locals.numPendientes%>
+            </p>
           </div>
           <div class="col-4 text-white text-center">
             <h3 class="text-white mb-4">Plataformas</h3>
             <p>ps5, xbox...</p>
+          </div>
+        </div>
+
+        <div class="container-fluid p-5">
+          <div class="row justify-content-center bg-primary p-5 border border-4 border-info rounded">
+            <div class="col-12 text-center">
+              <h1 class="text-white mb-4 text-center">
+                Lista de juegos de <%=locals.usuarioPerfil.nombreUsuario%>
+              </h1>
+            </div>
+            <div class="col-12 mb-5 mt-5">
+              <h1 class="text-white">Completados<h1>
+                  <% if (locals.completados[0] !==undefined) { %>
+                    <% completados.forEach(juegoCompletado=> { %>
+                      <div class="row mt-3">
+                        <div
+                          class="col-3 mt-2 p-2 pt-3 bg-info rounded border caratulaJuego border-3 border-light text-center"
+                          data-id="<%=juegoCompletado.id_juego%>">
+                          <img class="img-fluid text-center float-start" src="<%=juegoCompletado.imagen%>"
+                            alt="Game Image" width="100px">
+                          <h4 class="text-white text-center pt-2">
+                            <%=juegoCompletado.titulo%>
+                          </h4>
+                          <h4 class="text-white text-center">
+                            Calificación de <%=locals.usuarioPerfil.nombreUsuario%>
+                          </h4>
+                          <h4 class="text-white text-center">
+                            <%=juegoCompletado.calificacion%>★
+                          </h4>
+                        </div>
+                        <div class="col-8 ms-1 p-2 pt-3 bg-light rounded border border-3 border-light">
+                          <h4>Opinión</h4>
+                          <h6>
+                            <%=juegoCompletado.opinion%>
+                          </h6>
+                        </div>
+                      </div>
+                      <% }) %>
+                        <% } %>
+            </div>
+            <div class="col-12 mt-5 mb-5">
+              <h1 class="text-white">Jugando<h1>
+                  <% if (locals.jugando[0] !==undefined) { %>
+                    <% jugando.forEach(juegoJugando=> { %>
+                      <div class="row mt-3">
+                        <div
+                          class="col-3 mt-2 p-2 pt-3 bg-info rounded border caratulaJuego border-3 border-light text-center"
+                          data-id="<%=juegoJugando.id_juego%>">
+                          <img class="img-fluid text-center float-start" src="<%=juegoJugando.imagen%>" alt="Game Image"
+                            width="100px">
+                          <h4 class="text-white text-center pt-2">
+                            <%=juegoJugando.titulo%>
+                          </h4>
+                          <% if (juegoJugando.calificacion!==0) { %>
+                            <h4 class="text-white text-center">
+                              Calificación de <%=locals.usuarioPerfil.nombreUsuario%>
+                            </h4>
+                            <h4 class="text-white text-center">
+                              <%=juegoJugando.calificacion%>★
+                            </h4>
+                            <% } %>
+                        </div>
+                      </div>
+                      <% }) %>
+                        <% } %>
+            </div>
+            <div class="col-12 mt-5 mb-5">
+              <h1 class="text-white">Pendientes<h1>
+                  <% if (locals.pendientes[0] !==undefined) { %>
+                    <% pendientes.forEach(juegoPendiente=> { %>
+                      <div class="row mt-3">
+                        <div
+                          class="col-3 mt-2 p-2 pt-3 bg-info rounded border caratulaJuego border-3 border-light text-center"
+                          data-id="<%=juegoPendiente.id_juego%>">
+                          <img class="img-fluid text-center float-start" src="<%=juegoPendiente.imagen%>"
+                            alt="Game Image" width="100px">
+                          <h4 class="text-white text-center pt-2">
+                            <%=juegoPendiente.titulo%>
+                          </h4>
+                        </div>
+                      </div>
+                      <% }) %>
+                        <% } %>
+            </div>
           </div>
         </div>
     </main>
@@ -87,6 +179,14 @@
           $(this).text("Amigo");
         }
         );
+        $(".caratulaJuego").click(function (e) {
+          e.preventDefault();
+          const idJuego = $(this).data("id");
+          window.open(
+            `/juego/${idJuego}`,
+            '_blank'
+          );
+        });
       </script>
   </body>
 

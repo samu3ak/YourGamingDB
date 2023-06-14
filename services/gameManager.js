@@ -18,7 +18,7 @@ async function linkGameToUser(userId, gameId) {
         { replacements: [userId, gameId], type: sequelize.QueryTypes.INSERT });
 }
 
-async function obtenerJugadosPendientesCompletados(userId) {
+async function obtenerNumJugadosPendientesCompletados(userId) {
     let numCompletados = await sequelize.query("SELECT COUNT(*) as numCompletados FROM usuariojuego WHERE id_usuario_usuarioJuego = ? AND estado = 'Completado'", { replacements: [userId], type: sequelize.QueryTypes.SELECT });
     numCompletados = numCompletados[0].numCompletados;
     let numJugando = await sequelize.query("SELECT COUNT(*) as numJugando FROM usuariojuego WHERE id_usuario_usuarioJuego = ? AND estado = 'Jugando'", { replacements: [userId], type: sequelize.QueryTypes.SELECT });
@@ -28,9 +28,17 @@ async function obtenerJugadosPendientesCompletados(userId) {
     return [numCompletados, numJugando, numPendientes];
 }
 
+async function obtenerJugadosPendientesCompletados(userId) {
+    let completados = await sequelize.query("SELECT u.calificacion, u.opinion, j.id_juego, j.titulo, j.imagen FROM usuariojuego u INNER JOIN juego j ON (u.id_juego_usuarioJuego = j.id_juego) WHERE u.id_usuario_usuarioJuego= ? AND u.estado = 'Completado'", { replacements: [userId], type: sequelize.QueryTypes.SELECT });
+    let jugando = await sequelize.query("SELECT u.calificacion, j.id_juego, j.titulo, j.imagen FROM usuariojuego u INNER JOIN juego j ON (u.id_juego_usuarioJuego = j.id_juego) WHERE u.id_usuario_usuarioJuego= ? AND u.estado = 'Jugando'", { replacements: [userId], type: sequelize.QueryTypes.SELECT });
+    let pendientes = await sequelize.query("SELECT j.id_juego, j.titulo, j.imagen FROM usuariojuego u INNER JOIN juego j ON (u.id_juego_usuarioJuego = j.id_juego) WHERE u.id_usuario_usuarioJuego= ? AND u.estado = 'Pendiente'", { replacements: [userId], type: sequelize.QueryTypes.SELECT });
+    return [completados, jugando, pendientes];
+}
+
 
 module.exports = {
     userHasGame,
     linkGameToUser,
+    obtenerNumJugadosPendientesCompletados,
     obtenerJugadosPendientesCompletados
 };
